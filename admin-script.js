@@ -189,13 +189,22 @@ function saveSection(section) {
     }
     
     localStorage.setItem('bvcc_content', JSON.stringify(content));
-    showToast('Changes saved successfully!');
+    
+    // Show detailed save instructions
+    showSaveInstructions();
     
     // Generate updated HTML file instructions
     generateUpdateInstructions(content);
     
     // Add download button functionality
     addDownloadButton(content);
+}
+
+function showSaveInstructions() {
+    const message = `✅ Changes saved to browser!\n\n⚠️ IMPORTANT: To apply changes to the live website:\n\n1. Click "DOWNLOAD CHANGES" button (top right)\n2. Send the downloaded file to your developer\n3. Developer will update the live site\n\nChanges are currently only visible in this browser.`;
+    
+    alert(message);
+    showToast('Changes saved! Click DOWNLOAD CHANGES to export.');
 }
 
 /* ============================================
@@ -222,11 +231,24 @@ function addDownloadButton(content) {
 }
 
 function downloadContentFile(content) {
+    const timestamp = new Date().toLocaleString();
     const fileContent = `// BVCC Website Content
 // Generated from Admin Panel
-// Date: ${new Date().toLocaleString()}
+// Date: ${timestamp}
+//
+// INSTRUCTIONS FOR DEVELOPER:
+// 1. Replace the content in index.html with the values below
+// 2. Update each section's text to match these values
+// 3. Commit changes to GitHub
+// 4. Vercel will auto-deploy in 1-2 minutes
 
 const BVCC_CONTENT = ${JSON.stringify(content, null, 2)};
+
+// Hero Section Updates:
+// Tag: ${content.hero?.tag || 'N/A'}
+// Title Line 1: ${content.hero?.title1 || 'N/A'}
+// Title Line 2: ${content.hero?.title2 || 'N/A'}
+// Subtitle: ${content.hero?.subtitle || 'N/A'}
 
 // Export for use in other files
 if (typeof module !== 'undefined' && module.exports) {
@@ -237,13 +259,14 @@ if (typeof module !== 'undefined' && module.exports) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'content.js';
+    a.download = `bvcc-content-updates-${new Date().toISOString().split('T')[0]}.js`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     
-    showToast('Content file downloaded! Send this to your developer.');
+    alert('📥 File downloaded!\n\nSend this file to your developer to update the live website.\n\nThe file contains all your content changes with instructions.');
+    showToast('Content file downloaded! Send to developer.');
 }
 
 /* ============================================

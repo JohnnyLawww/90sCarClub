@@ -3,3 +3,7 @@ BrooklynVintageCarClub_Official/BrandBoard/*.pdf
 *.ai
 *.psd
 *.zip
+node_modules/
+.env
+.env.local
+

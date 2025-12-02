@@ -256,19 +256,31 @@ function initForm() {
     }
     
     function saveWaitlistSubmission(data) {
-        // Get existing submissions
-        const submissions = JSON.parse(localStorage.getItem('bvcc_submissions') || '[]');
+        // Save to API
+        fetch('/api/submissions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                console.log('Submission saved to database');
+            }
+        })
+        .catch(error => {
+            console.error('Error saving submission:', error);
+        });
         
-        // Add timestamp to submission
+        // Also save to localStorage as backup
+        const submissions = JSON.parse(localStorage.getItem('bvcc_submissions') || '[]');
         const submission = {
             ...data,
             timestamp: new Date().toISOString()
         };
-        
-        // Add new submission
         submissions.push(submission);
-        
-        // Save back to localStorage
         localStorage.setItem('bvcc_submissions', JSON.stringify(submissions));
     }
     
