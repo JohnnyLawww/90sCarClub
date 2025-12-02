@@ -1,4 +1,10 @@
-import { kv } from '@vercel/kv';
+import { createClient } from '@vercel/kv';
+
+// Initialize KV client with custom prefix
+const kv = createClient({
+  url: process.env.BVCC_KV_REST_API_URL,
+  token: process.env.BVCC_KV_REST_API_TOKEN,
+});
 
 export const config = {
   runtime: 'edge',
