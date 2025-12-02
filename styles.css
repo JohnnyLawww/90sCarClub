@@ -5,15 +5,15 @@
 
 /* CSS Custom Properties */
 :root {
-    /* Colors - Restrained, sophisticated palette */
+    /* Colors - BVCC Red & Industrial palette */
     --color-bg: #FAFAF8;
     --color-bg-alt: #F2F1EE;
     --color-bg-dark: #1A1918;
     --color-text: #1A1918;
     --color-text-muted: #6B6966;
     --color-text-light: #9A9895;
-    --color-accent: #8B7355;
-    --color-accent-hover: #73604A;
+    --color-accent: #FA2223;
+    --color-accent-hover: #D91E1F;
     --color-white: #FFFFFF;
     --color-border: rgba(26, 25, 24, 0.1);
     --color-border-dark: rgba(255, 255, 255, 0.1);
@@ -119,6 +119,13 @@ body.loading {
     text-align: center;
 }
 
+.loader-logo {
+    display: block;
+    width: 180px;
+    height: auto;
+    margin: 0 auto var(--space-md);
+}
+
 .loader-text {
     display: block;
     font-family: var(--font-sans);
@@ -202,6 +209,17 @@ body.loading {
     color: var(--color-white);
     text-decoration: none;
     transition: color var(--duration-fast) var(--ease-smooth);
+}
+
+.nav-logo-img {
+    height: 28px;
+    width: auto;
+    display: block;
+    transition: opacity var(--duration-fast) var(--ease-smooth);
+}
+
+.nav.scrolled .nav-logo-img {
+    content: url('BrooklynVintageCarClub_Official/Logo/Logo/svg/Black.svg');
 }
 
 .nav.scrolled .nav-logo {
@@ -669,6 +687,148 @@ body.loading {
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--color-text-muted);
+}
+
+/* ============================================
+   LOCATION SECTION
+   ============================================ */
+.location {
+    padding: var(--space-3xl) 0;
+    background: var(--color-bg-alt);
+}
+
+.location-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+    align-items: center;
+}
+
+.location-lead {
+    font-family: var(--font-serif);
+    font-size: var(--text-xl);
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--color-text);
+    margin-bottom: var(--space-lg);
+}
+
+.location-content p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.location-image {
+    position: relative;
+}
+
+.location-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================
+   FLEET SECTION
+   ============================================ */
+.fleet {
+    padding: var(--space-3xl) 0;
+    background: var(--color-bg);
+}
+
+.fleet-header {
+    max-width: 600px;
+    margin-bottom: var(--space-2xl);
+}
+
+.fleet-intro {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+}
+
+.fleet-gallery {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-md);
+    padding: 0 var(--container-padding);
+    max-width: 1600px;
+    margin: 0 auto var(--space-2xl);
+}
+
+.fleet-details {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: var(--space-xl);
+}
+
+.fleet-details p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+}
+
+.fleet-note {
+    font-size: var(--text-sm);
+    font-style: italic;
+}
+
+/* ============================================
+   WAITLIST SECTION
+   ============================================ */
+.waitlist {
+    padding: var(--space-3xl) 0;
+    background: var(--color-bg-alt);
+}
+
+.waitlist-header {
+    max-width: 700px;
+    margin: 0 auto var(--space-2xl);
+    text-align: center;
+}
+
+.waitlist-intro {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+}
+
+.waitlist-form {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--color-bg);
+    padding: var(--space-2xl);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.waitlist-form select {
+    width: 100%;
+    padding: 1em;
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    color: var(--color-text);
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    transition: border-color var(--duration-fast) var(--ease-smooth);
+    cursor: pointer;
+}
+
+.waitlist-form select:focus {
+    outline: none;
+    border-color: var(--color-accent);
+}
+
+/* ============================================
+   FOOTER UPDATES
+   ============================================ */
+.footer-logo-img {
+    width: 180px;
+    height: auto;
+    margin-bottom: var(--space-sm);
 }
 
 /* ============================================
@@ -1280,6 +1440,24 @@ body.loading {
     .about-stats {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-md);
+    }
+    
+    .location-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-xl);
+    }
+    
+    .fleet-gallery {
+        grid-template-columns: 1fr;
+        padding: 0 var(--container-padding);
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .waitlist-form {
+        padding: var(--space-lg);
     }
     
     .collection-gallery {

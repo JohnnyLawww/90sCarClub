@@ -1,0 +1,65 @@
+HERO
+Your private drivers’ club.
+Analog-era performance. Modern classics.
+A minimalist, industrial space built for people who love to drive.
+ABOUT
+Brooklyn Vintage Car Club is a small, private drivers’ club centered on analog, modern-classic cars from the 1990s and 2000s. The emphasis is driving—quiet, minimal, and practical.
+A clean industrial space, a curated fleet, frictionless access, and a small membership base that appreciates substance over spectacle.
+The space includes a simple lounge with a low-key, self-serve bar, lockers, and room to decompress before or after drives.
+Built for people who value engagement, analog feel, and the clarity of mechanical controls.
+LOCATION
+The club will be located in either Red Hook or Sunset Park—Brooklyn neighborhoods defined by industrial buildings, wide blocks, and easy vehicle access.
+Both areas have the right architecture and access for a drivers’ club.
+FLEET PHILOSOPHY
+A curated set of 90s and 2000s European modern classics—driver-focused machines known for character, engagement, and analog feel.
+Launch with 8–10 cars, grow to 12 by the end of year two, and expand to 18 as membership scales.
+Representative models include:
+Porsche: 964, 993, 996 GT3, 997 Turbo, 944 Turbo
+BMW: E36 M3, E46 M3, E39 M5, Z3 M Coupe
+Mercedes: CLK63 Black Series
+Ferrari: F430
+Aston Martin: V8 Vantage (manual)
+Acura/Honda/Nissan: NSX (NA1), S2000, 300ZX Twin Turbo
+Subject to availability, acquisition timing and member demand.
+MEMBERSHIP
+Membership includes an initiation fee and monthly dues. Full details are shared privately with applicants during the review process.
+Includes:
+	•	Access to the full fleet 
+	•	150 miles per day 
+	•	Day drives and multi-day trips 
+	•	Frictionless key pickup via secure lockers 
+	•	Discreet on-site management 
+	•	Online booking system 
+	•	Access to the lounge with self-serve bar and secure storage
+The goal is simple: great cars, easy access, zero friction.
+FOUNDING MEMBER WAITLIST
+Form fields:
+- Full Name
+- Email
+- Phone
+- ZIP Code
+- Do you drive manual? (Yes/No)
+- Do you currently own an enthusiast car? (Yes/No)
+  - If yes: What do you own?
+- What types of cars are you most interested in?
+- Why are you interested in joining BVCC?
+- Would you be ready to join in early spring if accepted? (Yes / I’d need to see the space first / No)
+- Membership will include an initiation fee in the mid–four-figure range and monthly dues. Is this general level of cost within what you’d expect for a drivers’ club? (Yes / I’d need to learn more / No)
+- How often do you expect to use the club? (Weekly / Monthly / A few times per year / Unsure)
+-Any other comments on how we could make this your dream garage?
+Microcopy:
+“We review all submissions. Space is limited.”
+FOOTER
+© Brooklyn Vintage Car Club
+A private drivers’ club.
+
+IMAGE USAGE GUIDELINES FOR WEBFLOW
+Use 7–10 total images across the entire site.
+
+Hero (1 image): one clean studio side-profile of a red 964.
+About (1 image): one detail shot (badge, interior close-up).
+Location (0–1 images): optional industrial exterior shot.
+Fleet Philosophy (3–4 images): studio side profiles (964, 993, E46 M3, NSX).
+Membership (0–1 images): optional cockpit interior shot.
+FAQ (0 images).
+Footer (0–1 images): dark, low-contrast texture crop.
