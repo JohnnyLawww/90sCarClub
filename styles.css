@@ -472,7 +472,8 @@ body.loading {
     justify-content: flex-start;
     padding-top: 12vh;
     overflow: hidden;
-    background: #1a1d24 !important;
+    background: url('stock photos/AdobeStock_788813908_Editorial_Use_Only.jpeg') no-repeat center bottom;
+    background-size: cover;
 }
 
 .hero-content {
@@ -531,22 +532,6 @@ body.loading {
     gap: var(--space-md);
     flex-wrap: wrap;
     margin-bottom: var(--space-xl);
-}
-
-/* Hero Car Image - fills remaining hero space */
-.hero-car {
-    flex: 1;
-    width: 100%;
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    margin-top: 1rem;
-}
-
-.hero-car-img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
 }
 
 /* ============================================
