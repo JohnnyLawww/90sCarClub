@@ -58,6 +58,21 @@
                     <a href="#membership" class="admin-nav-item" data-section="membership">
                         Membership
                     </a>
+                    <a href="#gallery" class="admin-nav-item" data-section="gallery">
+                        Image Gallery
+                    </a>
+                    <a href="#branding" class="admin-nav-item" data-section="branding">
+                        Branding & Design
+                    </a>
+                    <a href="#seo" class="admin-nav-item" data-section="seo">
+                        SEO Settings
+                    </a>
+                    <a href="#contact" class="admin-nav-item" data-section="contact">
+                        Contact & Social
+                    </a>
+                    <a href="#analytics" class="admin-nav-item" data-section="analytics">
+                        Analytics
+                    </a>
                     <a href="#waitlist" class="admin-nav-item" data-section="waitlist">
                         Waitlist Submissions
                     </a>
@@ -288,6 +303,250 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                             <textarea id="membership-lead" rows="3">Membership includes an initiation fee and monthly dues. Full details are shared privately with applicants during the review process.</textarea>
                         </div>
                         <button class="btn btn-primary save-btn" data-section="membership">Save Changes</button>
+                    </div>
+                </div>
+
+                <!-- Image Gallery Manager -->
+                <div class="admin-section" id="section-gallery">
+                    <h2>Image Gallery</h2>
+                    <div class="editor-card">
+                        <p class="section-description">Upload and manage images for your website gallery. Drag to reorder.</p>
+                        
+                        <div class="form-group">
+                            <label>Upload New Images</label>
+                            <input type="file" id="gallery-upload" accept="image/*" multiple style="display: none;">
+                            <button class="btn btn-primary" onclick="document.getElementById('gallery-upload').click()">
+                                📤 Upload Images
+                            </button>
+                        </div>
+                        
+                        <div id="gallery-grid" class="image-grid">
+                            <!-- Gallery images will be loaded here -->
+                        </div>
+                        
+                        <button class="btn btn-primary save-btn" data-section="gallery">Save Gallery</button>
+                    </div>
+                </div>
+
+                <!-- Branding & Design -->
+                <div class="admin-section" id="section-branding">
+                    <h2>Branding & Design</h2>
+                    
+                    <!-- Logo Upload -->
+                    <div class="editor-card">
+                        <h3>Logo</h3>
+                        <div class="form-group">
+                            <label>Club Logo</label>
+                            <div class="image-upload-container">
+                                <div class="image-preview logo-preview">
+                                    <img id="logo-img" src="" alt="Logo">
+                                    <div class="image-overlay">Current Logo</div>
+                                </div>
+                                <input type="file" id="logo-upload" accept="image/*" style="display: none;">
+                                <button class="btn btn-secondary" onclick="document.getElementById('logo-upload').click()">Upload Logo</button>
+                                <input type="text" id="logo-url" placeholder="Or paste logo URL" style="margin-top: 10px;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Color Theme -->
+                    <div class="editor-card">
+                        <h3>Color Theme</h3>
+                        <div class="form-group">
+                            <label>Primary Color (BVCC Red)</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="color" id="primary-color" value="#FA2223" style="width: 60px; height: 40px; border: none; cursor: pointer;">
+                                <input type="text" id="primary-color-hex" value="#FA2223" placeholder="#FA2223" style="width: 120px;">
+                                <button class="btn btn-secondary btn-sm" onclick="resetColor()">Reset to Default</button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Dark Background</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="color" id="dark-bg-color" value="#1A1918" style="width: 60px; height: 40px; border: none; cursor: pointer;">
+                                <input type="text" id="dark-bg-hex" value="#1A1918" placeholder="#1A1918" style="width: 120px;">
+                            </div>
+                        </div>
+                        
+                        <div class="color-preview" id="colorPreview">
+                            <div class="preview-box" style="background: var(--preview-primary, #FA2223);">Primary</div>
+                            <div class="preview-box" style="background: var(--preview-dark, #1A1918); color: white;">Dark</div>
+                        </div>
+                    </div>
+
+                    <!-- Typography -->
+                    <div class="editor-card">
+                        <h3>Typography</h3>
+                        <div class="form-group">
+                            <label>Heading Font</label>
+                            <select id="heading-font">
+                                <option value="Cormorant Garamond">Cormorant Garamond (Current)</option>
+                                <option value="Playfair Display">Playfair Display</option>
+                                <option value="Libre Baskerville">Libre Baskerville</option>
+                                <option value="Crimson Text">Crimson Text</option>
+                                <option value="Merriweather">Merriweather</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Body Font</label>
+                            <select id="body-font">
+                                <option value="Inter">Inter (Current)</option>
+                                <option value="Roboto">Roboto</option>
+                                <option value="Open Sans">Open Sans</option>
+                                <option value="Lato">Lato</option>
+                                <option value="Source Sans Pro">Source Sans Pro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="typography-preview" id="typographyPreview">
+                            <h3 style="font-family: var(--preview-heading, 'Cormorant Garamond'), serif;">Heading Preview</h3>
+                            <p style="font-family: var(--preview-body, 'Inter'), sans-serif;">Body text preview with selected fonts.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary save-btn" data-section="branding">Save Branding</button>
+                </div>
+
+                <!-- SEO Settings -->
+                <div class="admin-section" id="section-seo">
+                    <h2>SEO Settings</h2>
+                    <div class="editor-card">
+                        <p class="section-description">Optimize your website for search engines and social media sharing.</p>
+                        
+                        <div class="form-group">
+                            <label>Page Title</label>
+                            <input type="text" id="seo-title" placeholder="Brooklyn Vintage Car Club - 90s Modern Classics" maxlength="60">
+                            <p class="form-hint">Recommended: 50-60 characters</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Meta Description</label>
+                            <textarea id="seo-description" rows="3" placeholder="Private drivers' club for 90s and 2000s European modern classics in Brooklyn, NY." maxlength="160"></textarea>
+                            <p class="form-hint">Recommended: 150-160 characters</p>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Keywords (comma-separated)</label>
+                            <input type="text" id="seo-keywords" placeholder="vintage car club, classic cars, Brooklyn, 90s cars, drivers club">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Open Graph Image (Social Media)</label>
+                            <div class="image-upload-container">
+                                <div class="image-preview">
+                                    <img id="og-image" src="" alt="Open Graph Image">
+                                    <div class="image-overlay">Social sharing image</div>
+                                </div>
+                                <input type="file" id="og-upload" accept="image/*" style="display: none;">
+                                <button class="btn btn-secondary" onclick="document.getElementById('og-upload').click()">Upload OG Image</button>
+                                <input type="text" id="og-url" placeholder="Or paste image URL" style="margin-top: 10px;">
+                                <p class="form-hint">Recommended: 1200x630px</p>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary save-btn" data-section="seo">Save SEO Settings</button>
+                    </div>
+                </div>
+
+                <!-- Contact & Social -->
+                <div class="admin-section" id="section-contact">
+                    <h2>Contact & Social Media</h2>
+                    
+                    <div class="editor-card">
+                        <h3>Contact Information</h3>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" id="contact-email" placeholder="info@brooklynvintagecarclub.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Phone Number</label>
+                            <input type="tel" id="contact-phone" placeholder="(718) 555-0100">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Address</label>
+                            <textarea id="contact-address" rows="2" placeholder="Brooklyn, NY (Red Hook or Sunset Park)"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Operating Hours</label>
+                            <textarea id="contact-hours" rows="2" placeholder="By appointment only"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="editor-card">
+                        <h3>Social Media</h3>
+                        <div class="form-group">
+                            <label>Instagram</label>
+                            <input type="url" id="social-instagram" placeholder="https://instagram.com/bvcc">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Facebook</label>
+                            <input type="url" id="social-facebook" placeholder="https://facebook.com/bvcc">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Twitter/X</label>
+                            <input type="url" id="social-twitter" placeholder="https://twitter.com/bvcc">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>YouTube</label>
+                            <input type="url" id="social-youtube" placeholder="https://youtube.com/@bvcc">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 10px;">
+                                <input type="checkbox" id="social-display" checked>
+                                Display social icons on website
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary save-btn" data-section="contact">Save Contact & Social</button>
+                </div>
+
+                <!-- Analytics Dashboard -->
+                <div class="admin-section" id="section-analytics">
+                    <h2>Analytics Dashboard</h2>
+                    <div class="editor-card">
+                        <div class="analytics-stats">
+                            <div class="stat-card">
+                                <h3>Total Page Views</h3>
+                                <p class="stat-number" id="stat-views">Loading...</p>
+                                <p class="stat-change">↑ Last 30 days</p>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <h3>Waitlist Submissions</h3>
+                                <p class="stat-number" id="stat-submissions">0</p>
+                                <p class="stat-change">All time</p>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <h3>Conversion Rate</h3>
+                                <p class="stat-number" id="stat-conversion">0%</p>
+                                <p class="stat-change">Views to submissions</p>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <h3>Avg. Time on Site</h3>
+                                <p class="stat-number" id="stat-time">--</p>
+                                <p class="stat-change">Average duration</p>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-chart">
+                            <h3>Traffic Overview</h3>
+                            <div id="traffic-chart" class="chart-placeholder">
+                                <p>📊 Analytics tracking will be enabled after deployment.</p>
+                                <p class="form-hint">Integrate Google Analytics or Vercel Analytics for detailed metrics.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

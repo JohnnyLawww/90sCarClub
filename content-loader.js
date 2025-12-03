@@ -23,6 +23,16 @@ async function loadDynamicContent() {
 }
 
 function applyContent(content) {
+    // Apply branding first (colors, fonts, logo)
+    if (content.branding) {
+        applyBranding(content.branding);
+    }
+    
+    // Apply SEO meta tags
+    if (content.seo) {
+        applySEO(content.seo);
+    }
+    
     // Hero Section
     if (content.hero) {
         const tagText = document.querySelector('.tag-text');
@@ -108,4 +118,173 @@ function applyContent(content) {
         if (membershipTitle && content.membership.title) membershipTitle.innerHTML = content.membership.title;
         if (membershipLead && content.membership.lead) membershipLead.textContent = content.membership.lead;
     }
+    
+    // Contact & Social
+    if (content.contact) {
+        applyContactInfo(content.contact);
+    }
 }
+
+function applyBranding(branding) {
+    // Apply logo
+    if (branding.logo) {
+        const logos = document.querySelectorAll('.logo');
+        logos.forEach(logo => {
+            if (logo.tagName === 'IMG') {
+                logo.src = branding.logo;
+            }
+        });
+    }
+    
+    // Apply colors via CSS variables
+    const root = document.documentElement;
+    if (branding.primaryColor) {
+        root.style.setProperty('--color-primary', branding.primaryColor);
+    }
+    if (branding.darkBg) {
+        root.style.setProperty('--color-dark', branding.darkBg);
+    }
+    
+    // Apply fonts
+    if (branding.headingFont || branding.bodyFont) {
+        let style = document.getElementById('dynamic-fonts');
+        if (!style) {
+            style = document.createElement('style');
+            style.id = 'dynamic-fonts';
+            document.head.appendChild(style);
+        }
+        
+        let css = '';
+        if (branding.headingFont) {
+            css += `h1, h2, h3, h4, h5, h6, .section-title, .hero-title { font-family: '${branding.headingFont}', serif !important; }\n`;
+        }
+        if (branding.bodyFont) {
+            css += `body, p, a, input, textarea, button { font-family: '${branding.bodyFont}', sans-serif !important; }\n`;
+        }
+        style.textContent = css;
+        
+        // Load Google Fonts
+        if (branding.headingFont || branding.bodyFont) {
+            const fonts = [];
+            if (branding.headingFont) fonts.push(branding.headingFont.replace(/ /g, '+'));
+            if (branding.bodyFont) fonts.push(branding.bodyFont.replace(/ /g, '+'));
+            
+            let fontLink = document.getElementById('dynamic-font-link');
+            if (!fontLink) {
+                fontLink = document.createElement('link');
+                fontLink.id = 'dynamic-font-link';
+                fontLink.rel = 'stylesheet';
+                document.head.appendChild(fontLink);
+            }
+            fontLink.href = `https://fonts.googleapis.com/css2?${fonts.map(f => `family=${f}:wght@400;600;700`).join('&')}&display=swap`;
+        }
+    }
+}
+
+function applySEO(seo) {
+    // Update page title
+    if (seo.title) {
+        document.title = seo.title;
+    }
+    
+    // Update meta description
+    if (seo.description) {
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+            metaDesc = document.createElement('meta');
+            metaDesc.name = 'description';
+            document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = seo.description;
+    }
+    
+    // Update meta keywords
+    if (seo.keywords) {
+        let metaKeys = document.querySelector('meta[name="keywords"]');
+        if (!metaKeys) {
+            metaKeys = document.createElement('meta');
+            metaKeys.name = 'keywords';
+            document.head.appendChild(metaKeys);
+        }
+        metaKeys.content = seo.keywords;
+    }
+    
+    // Update Open Graph tags
+    if (seo.ogImage) {
+        let ogImg = document.querySelector('meta[property="og:image"]');
+        if (!ogImg) {
+            ogImg = document.createElement('meta');
+            ogImg.setAttribute('property', 'og:image');
+            document.head.appendChild(ogImg);
+        }
+        ogImg.content = seo.ogImage;
+    }
+    
+    if (seo.title) {
+        let ogTitle = document.querySelector('meta[property="og:title"]');
+        if (!ogTitle) {
+            ogTitle = document.createElement('meta');
+            ogTitle.setAttribute('property', 'og:title');
+            document.head.appendChild(ogTitle);
+        }
+        ogTitle.content = seo.title;
+    }
+    
+    if (seo.description) {
+        let ogDesc = document.querySelector('meta[property="og:description"]');
+        if (!ogDesc) {
+            ogDesc = document.createElement('meta');
+            ogDesc.setAttribute('property', 'og:description');
+            document.head.appendChild(ogDesc);
+        }
+        ogDesc.content = seo.description;
+    }
+}
+
+function applyContactInfo(contact) {
+    // Add footer with contact and social if it doesn't exist
+    let footer = document.querySelector('.site-footer');
+    if (!footer && contact.social && contact.social.display) {
+        footer = document.createElement('footer');
+        footer.className = 'site-footer';
+        footer.style.cssText = 'background: var(--color-dark); color: white; padding: 3rem 1rem; text-align: center;';
+        
+        let html = '<div style="max-width: 1200px; margin: 0 auto;">';
+        
+        // Contact info
+        if (contact.email || contact.phone) {
+            html += '<div style="margin-bottom: 2rem;">';
+            if (contact.email) html += `<p><a href="mailto:${contact.email}" style="color: white;">${contact.email}</a></p>`;
+            if (contact.phone) html += `<p>${contact.phone}</p>`;
+            if (contact.address) html += `<p>${contact.address}</p>`;
+            html += '</div>';
+        }
+        
+        // Social icons
+        if (contact.social.display) {
+            html += '<div class="social-links" style="display: flex; gap: 1.5rem; justify-content: center; margin: 2rem 0;">';
+            
+            if (contact.social.instagram) {
+                html += `<a href="${contact.social.instagram}" target="_blank" style="color: white; font-size: 1.5rem;">📷</a>`;
+            }
+            if (contact.social.facebook) {
+                html += `<a href="${contact.social.facebook}" target="_blank" style="color: white; font-size: 1.5rem;">📘</a>`;
+            }
+            if (contact.social.twitter) {
+                html += `<a href="${contact.social.twitter}" target="_blank" style="color: white; font-size: 1.5rem;">🐦</a>`;
+            }
+            if (contact.social.youtube) {
+                html += `<a href="${contact.social.youtube}" target="_blank" style="color: white; font-size: 1.5rem;">📺</a>`;
+            }
+            
+            html += '</div>';
+        }
+        
+        html += '<p style="margin-top: 2rem; opacity: 0.7; font-size: 0.875rem;">© 2024 Brooklyn Vintage Car Club. All rights reserved.</p>';
+        html += '</div>';
+        
+        footer.innerHTML = html;
+        document.body.appendChild(footer);
+    }
+}
+

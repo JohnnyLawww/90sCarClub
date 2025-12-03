@@ -44,6 +44,9 @@ function showAdminPanel() {
     initSaveButtons();
     initLogout();
     initImageUploads();
+    initBrandingControls();
+    initGalleryManager();
+    initAnalytics();
     loadContentFromAPI();
     loadSubmissionsFromAPI();
 }
@@ -162,6 +165,93 @@ function populateFormFields(content) {
         document.getElementById('membership-title').value = content.membership.title || '';
         document.getElementById('membership-lead').value = content.membership.lead || '';
     }
+    
+    // Gallery
+    if (content.gallery && Array.isArray(content.gallery)) {
+        galleryImages = content.gallery;
+        renderGallery();
+    }
+    
+    // Branding
+    if (content.branding) {
+        const logoImg = document.getElementById('logo-img');
+        const logoUrl = document.getElementById('logo-url');
+        if (content.branding.logo) {
+            if (logoImg) logoImg.src = content.branding.logo;
+            if (logoUrl) logoUrl.value = content.branding.logo;
+        }
+        
+        if (content.branding.primaryColor) {
+            const primary = document.getElementById('primary-color');
+            const primaryHex = document.getElementById('primary-color-hex');
+            if (primary) primary.value = content.branding.primaryColor;
+            if (primaryHex) primaryHex.value = content.branding.primaryColor;
+        }
+        
+        if (content.branding.darkBg) {
+            const dark = document.getElementById('dark-bg-color');
+            const darkHex = document.getElementById('dark-bg-hex');
+            if (dark) dark.value = content.branding.darkBg;
+            if (darkHex) darkHex.value = content.branding.darkBg;
+        }
+        
+        if (content.branding.headingFont) {
+            const heading = document.getElementById('heading-font');
+            if (heading) heading.value = content.branding.headingFont;
+        }
+        
+        if (content.branding.bodyFont) {
+            const body = document.getElementById('body-font');
+            if (body) body.value = content.branding.bodyFont;
+        }
+        
+        updateColorPreview();
+        updateTypographyPreview();
+    }
+    
+    // SEO
+    if (content.seo) {
+        const seoTitle = document.getElementById('seo-title');
+        const seoDesc = document.getElementById('seo-description');
+        const seoKeywords = document.getElementById('seo-keywords');
+        const ogImg = document.getElementById('og-image');
+        const ogUrl = document.getElementById('og-url');
+        
+        if (seoTitle) seoTitle.value = content.seo.title || '';
+        if (seoDesc) seoDesc.value = content.seo.description || '';
+        if (seoKeywords) seoKeywords.value = content.seo.keywords || '';
+        if (content.seo.ogImage) {
+            if (ogImg) ogImg.src = content.seo.ogImage;
+            if (ogUrl) ogUrl.value = content.seo.ogImage;
+        }
+    }
+    
+    // Contact & Social
+    if (content.contact) {
+        const email = document.getElementById('contact-email');
+        const phone = document.getElementById('contact-phone');
+        const address = document.getElementById('contact-address');
+        const hours = document.getElementById('contact-hours');
+        
+        if (email) email.value = content.contact.email || '';
+        if (phone) phone.value = content.contact.phone || '';
+        if (address) address.value = content.contact.address || '';
+        if (hours) hours.value = content.contact.hours || '';
+        
+        if (content.contact.social) {
+            const instagram = document.getElementById('social-instagram');
+            const facebook = document.getElementById('social-facebook');
+            const twitter = document.getElementById('social-twitter');
+            const youtube = document.getElementById('social-youtube');
+            const display = document.getElementById('social-display');
+            
+            if (instagram) instagram.value = content.contact.social.instagram || '';
+            if (facebook) facebook.value = content.contact.social.facebook || '';
+            if (twitter) twitter.value = content.contact.social.twitter || '';
+            if (youtube) youtube.value = content.contact.social.youtube || '';
+            if (display) display.checked = content.contact.social.display !== false;
+        }
+    }
 }
 
 function initSaveButtons() {
@@ -263,6 +353,33 @@ function buildContentObject() {
         membership: {
             title: document.getElementById('membership-title').value,
             lead: document.getElementById('membership-lead').value
+        },
+        gallery: galleryImages,
+        branding: {
+            logo: document.getElementById('logo-url')?.value || document.getElementById('logo-img')?.src || '',
+            primaryColor: document.getElementById('primary-color-hex')?.value || '#FA2223',
+            darkBg: document.getElementById('dark-bg-hex')?.value || '#1A1918',
+            headingFont: document.getElementById('heading-font')?.value || 'Cormorant Garamond',
+            bodyFont: document.getElementById('body-font')?.value || 'Inter'
+        },
+        seo: {
+            title: document.getElementById('seo-title')?.value || '',
+            description: document.getElementById('seo-description')?.value || '',
+            keywords: document.getElementById('seo-keywords')?.value || '',
+            ogImage: document.getElementById('og-url')?.value || document.getElementById('og-image')?.src || ''
+        },
+        contact: {
+            email: document.getElementById('contact-email')?.value || '',
+            phone: document.getElementById('contact-phone')?.value || '',
+            address: document.getElementById('contact-address')?.value || '',
+            hours: document.getElementById('contact-hours')?.value || '',
+            social: {
+                instagram: document.getElementById('social-instagram')?.value || '',
+                facebook: document.getElementById('social-facebook')?.value || '',
+                twitter: document.getElementById('social-twitter')?.value || '',
+                youtube: document.getElementById('social-youtube')?.value || '',
+                display: document.getElementById('social-display')?.checked || false
+            }
         }
     };
 }
@@ -581,5 +698,268 @@ async function uploadImage(file, previewElement) {
         hideLoadingToast();
         showToast('❌ Upload failed. Try pasting URL instead.', 'error');
         return null;
+    }
+}
+
+/* ============================================
+   BRANDING CONTROLS
+   ============================================ */
+function initBrandingControls() {
+    // Logo upload
+    const logoUpload = document.getElementById('logo-upload');
+    const logoUrl = document.getElementById('logo-url');
+    const logoPreview = document.getElementById('logo-img');
+    
+    if (logoUpload) {
+        logoUpload.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) await uploadImage(file, logoPreview);
+        });
+    }
+    
+    if (logoUrl) {
+        logoUrl.addEventListener('input', (e) => {
+            if (logoPreview) logoPreview.src = e.target.value.trim();
+        });
+    }
+    
+    // Color pickers
+    const primaryColor = document.getElementById('primary-color');
+    const primaryHex = document.getElementById('primary-color-hex');
+    const darkBg = document.getElementById('dark-bg-color');
+    const darkHex = document.getElementById('dark-bg-hex');
+    
+    if (primaryColor && primaryHex) {
+        primaryColor.addEventListener('input', (e) => {
+            primaryHex.value = e.target.value;
+            updateColorPreview();
+        });
+        
+        primaryHex.addEventListener('input', (e) => {
+            const color = e.target.value;
+            if (/^#[0-9A-F]{6}$/i.test(color)) {
+                primaryColor.value = color;
+                updateColorPreview();
+            }
+        });
+    }
+    
+    if (darkBg && darkHex) {
+        darkBg.addEventListener('input', (e) => {
+            darkHex.value = e.target.value;
+            updateColorPreview();
+        });
+        
+        darkHex.addEventListener('input', (e) => {
+            const color = e.target.value;
+            if (/^#[0-9A-F]{6}$/i.test(color)) {
+                darkBg.value = color;
+                updateColorPreview();
+            }
+        });
+    }
+    
+    // Font selectors
+    const headingFont = document.getElementById('heading-font');
+    const bodyFont = document.getElementById('body-font');
+    
+    if (headingFont) {
+        headingFont.addEventListener('change', updateTypographyPreview);
+    }
+    
+    if (bodyFont) {
+        bodyFont.addEventListener('change', updateTypographyPreview);
+    }
+    
+    // SEO image upload
+    const ogUpload = document.getElementById('og-upload');
+    const ogUrl = document.getElementById('og-url');
+    const ogPreview = document.getElementById('og-image');
+    
+    if (ogUpload) {
+        ogUpload.addEventListener('change', async (e) => {
+            const file = e.target.files[0];
+            if (file) await uploadImage(file, ogPreview);
+        });
+    }
+    
+    if (ogUrl) {
+        ogUrl.addEventListener('input', (e) => {
+            if (ogPreview) ogPreview.src = e.target.value.trim();
+        });
+    }
+}
+
+function resetColor() {
+    document.getElementById('primary-color').value = '#FA2223';
+    document.getElementById('primary-color-hex').value = '#FA2223';
+    updateColorPreview();
+}
+
+function updateColorPreview() {
+    const primary = document.getElementById('primary-color').value;
+    const dark = document.getElementById('dark-bg-color').value;
+    const preview = document.getElementById('colorPreview');
+    
+    if (preview) {
+        preview.style.setProperty('--preview-primary', primary);
+        preview.style.setProperty('--preview-dark', dark);
+    }
+}
+
+function updateTypographyPreview() {
+    const heading = document.getElementById('heading-font').value;
+    const body = document.getElementById('body-font').value;
+    const preview = document.getElementById('typographyPreview');
+    
+    if (preview) {
+        preview.style.setProperty('--preview-heading', heading);
+        preview.style.setProperty('--preview-body', body);
+    }
+}
+
+/* ============================================
+   GALLERY MANAGER
+   ============================================ */
+let galleryImages = [];
+
+function initGalleryManager() {
+    const galleryUpload = document.getElementById('gallery-upload');
+    
+    if (galleryUpload) {
+        galleryUpload.addEventListener('change', async (e) => {
+            const files = Array.from(e.target.files);
+            
+            for (const file of files) {
+                const url = await uploadImage(file, document.createElement('img'));
+                if (url) {
+                    galleryImages.push({
+                        url: url,
+                        caption: '',
+                        id: Date.now() + Math.random()
+                    });
+                }
+            }
+            
+            renderGallery();
+        });
+    }
+    
+    loadGalleryFromAPI();
+}
+
+function renderGallery() {
+    const grid = document.getElementById('gallery-grid');
+    if (!grid) return;
+    
+    grid.innerHTML = '';
+    
+    galleryImages.forEach((img, index) => {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.draggable = true;
+        item.dataset.index = index;
+        
+        item.innerHTML = `
+            <img src="${img.url}" alt="${img.caption || 'Gallery image'}">
+            <div class="gallery-item-actions">
+                <button class="gallery-item-delete" onclick="deleteGalleryImage(${index})">×</button>
+            </div>
+        `;
+        
+        // Drag and drop handlers
+        item.addEventListener('dragstart', handleDragStart);
+        item.addEventListener('dragover', handleDragOver);
+        item.addEventListener('drop', handleDrop);
+        item.addEventListener('dragend', handleDragEnd);
+        
+        grid.appendChild(item);
+    });
+}
+
+function deleteGalleryImage(index) {
+    if (confirm('Delete this image?')) {
+        galleryImages.splice(index, 1);
+        renderGallery();
+    }
+}
+
+let draggedItem = null;
+
+function handleDragStart(e) {
+    draggedItem = this;
+    e.dataTransfer.effectAllowed = 'move';
+    this.style.opacity = '0.4';
+}
+
+function handleDragOver(e) {
+    if (e.preventDefault) e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    return false;
+}
+
+function handleDrop(e) {
+    if (e.stopPropagation) e.stopPropagation();
+    
+    if (draggedItem !== this) {
+        const fromIndex = parseInt(draggedItem.dataset.index);
+        const toIndex = parseInt(this.dataset.index);
+        
+        const [moved] = galleryImages.splice(fromIndex, 1);
+        galleryImages.splice(toIndex, 0, moved);
+        
+        renderGallery();
+    }
+    
+    return false;
+}
+
+function handleDragEnd() {
+    this.style.opacity = '1';
+}
+
+async function loadGalleryFromAPI() {
+    try {
+        const response = await fetch('/api/content');
+        const data = await response.json();
+        
+        if (data.success && data.content && data.content.gallery) {
+            galleryImages = data.content.gallery;
+            renderGallery();
+        }
+    } catch (error) {
+        console.error('Error loading gallery:', error);
+    }
+}
+
+/* ============================================
+   ANALYTICS
+   ============================================ */
+function initAnalytics() {
+    updateAnalyticsDisplay();
+}
+
+async function updateAnalyticsDisplay() {
+    try {
+        // Get waitlist count
+        const response = await fetch('/api/submissions');
+        const data = await response.json();
+        
+        if (data.success) {
+            const submissions = data.submissions || [];
+            document.getElementById('stat-submissions').textContent = submissions.length;
+            
+            // Calculate conversion rate (placeholder - needs view tracking)
+            const views = 1000; // Placeholder
+            const conversion = submissions.length > 0 ? ((submissions.length / views) * 100).toFixed(1) : 0;
+            document.getElementById('stat-conversion').textContent = conversion + '%';
+        }
+        
+        // Placeholder for other stats
+        document.getElementById('stat-views').textContent = '---';
+        document.getElementById('stat-time').textContent = '---';
+        
+    } catch (error) {
+        console.error('Error loading analytics:', error);
     }
 }
