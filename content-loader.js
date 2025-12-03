@@ -88,28 +88,31 @@ function applyContent(content) {
         if (fleetDetails && content.fleet.details) fleetDetails.innerHTML = `<strong>${content.fleet.details.split(',')[0]}</strong>${content.fleet.details.substring(content.fleet.details.indexOf(','))}`;
         if (fleetNote && content.fleet.note) fleetNote.textContent = content.fleet.note;
         
-        // Apply fleet car images
+        // Apply fleet car images - only if valid cars exist in CMS
         if (content.fleet.cars && Array.isArray(content.fleet.cars) && content.fleet.cars.length > 0) {
-            const fleetGallery = document.querySelector('.fleet-gallery');
-            if (fleetGallery) {
-                fleetGallery.innerHTML = ''; // Clear existing
-                
-                content.fleet.cars.forEach((car, index) => {
-                    if (car.image || car.name) {
+            // Check if cars have actual content (not empty)
+            const validCars = content.fleet.cars.filter(car => car.image && car.name);
+            
+            if (validCars.length > 0) {
+                const fleetGallery = document.querySelector('.fleet-gallery');
+                if (fleetGallery) {
+                    fleetGallery.innerHTML = ''; // Clear defaults only if we have real cars
+                    
+                    validCars.forEach((car, index) => {
                         const carCard = document.createElement('div');
                         carCard.className = index === 0 ? 'gallery-item gallery-item-large' : 'gallery-item';
                         carCard.innerHTML = `
                             <div class="gallery-image-wrapper">
-                                <img src="${car.image || 'stock photos/AdobeStock_756001685_Editorial_Use_Only.jpeg'}" alt="${car.name || 'Car'}" class="gallery-image">
+                                <img src="${car.image}" alt="${car.name}" class="gallery-image">
                             </div>
                             <div class="gallery-info">
-                                <h3 class="gallery-name">${car.name || ''}</h3>
+                                <h3 class="gallery-name">${car.name}</h3>
                                 ${car.description ? `<p class="gallery-desc">${car.description}</p>` : ''}
                             </div>
                         `;
                         fleetGallery.appendChild(carCard);
-                    }
-                });
+                    });
+                }
             }
         }
     }

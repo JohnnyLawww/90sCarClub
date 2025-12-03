@@ -702,6 +702,57 @@ async function uploadImage(file, previewElement) {
 }
 
 /* ============================================
+   IMAGE REMOVAL FUNCTIONS
+   ============================================ */
+function removeHeroImage() {
+    const heroImg = document.getElementById('hero-bg-img');
+    const heroUrl = document.getElementById('hero-bg-url');
+    const heroUpload = document.getElementById('hero-bg-upload');
+    
+    if (heroImg) heroImg.src = '';
+    if (heroUrl) heroUrl.value = '';
+    if (heroUpload) heroUpload.value = '';
+    
+    showToast('Hero image cleared. Save to apply changes.', 'success');
+}
+
+function removeCarImage(carNumber) {
+    const carImg = document.querySelector(`.car-img[data-car="${carNumber}"]`);
+    const carUrl = document.querySelector(`.car-url[data-car="${carNumber}"]`);
+    const carUpload = document.querySelector(`.car-upload[data-car="${carNumber}"]`);
+    
+    if (carImg) carImg.src = '';
+    if (carUrl) carUrl.value = '';
+    if (carUpload) carUpload.value = '';
+    
+    showToast(`Car ${carNumber} image cleared. Save to apply changes.`, 'success');
+}
+
+function removeLogo() {
+    const logoImg = document.getElementById('logo-img');
+    const logoUrl = document.getElementById('logo-url');
+    const logoUpload = document.getElementById('logo-upload');
+    
+    if (logoImg) logoImg.src = '';
+    if (logoUrl) logoUrl.value = '';
+    if (logoUpload) logoUpload.value = '';
+    
+    showToast('Logo cleared. Save to apply changes.', 'success');
+}
+
+function removeOGImage() {
+    const ogImg = document.getElementById('og-image');
+    const ogUrl = document.getElementById('og-url');
+    const ogUpload = document.getElementById('og-upload');
+    
+    if (ogImg) ogImg.src = '';
+    if (ogUrl) ogUrl.value = '';
+    if (ogUpload) ogUpload.value = '';
+    
+    showToast('Open Graph image cleared. Save to apply changes.', 'success');
+}
+
+/* ============================================
    BRANDING CONTROLS
    ============================================ */
 function initBrandingControls() {

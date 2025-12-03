@@ -108,8 +108,11 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                                     <img id="hero-bg-img" src="" alt="Current hero background">
                                     <div class="image-overlay">Current Background</div>
                                 </div>
-                                <input type="file" id="hero-bg-upload" accept="image/*" style="display: none;">
-                                <button class="btn btn-secondary" onclick="document.getElementById('hero-bg-upload').click()">Upload New Image</button>
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="file" id="hero-bg-upload" accept="image/*" style="display: none;">
+                                    <button class="btn btn-secondary" onclick="document.getElementById('hero-bg-upload').click()">Upload New Image</button>
+                                    <button class="btn btn-danger" onclick="removeHeroImage()">Remove Image</button>
+                                </div>
                                 <input type="text" id="hero-bg-url" placeholder="Or paste image URL" style="margin-top: 10px;">
                                 <p class="form-hint">Recommended: 1920x1080px or larger, landscape format</p>
                             </div>
@@ -203,8 +206,11 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                                             <img class="car-img" data-car="1" src="" alt="">
                                             <div class="image-overlay">No image</div>
                                         </div>
-                                        <input type="file" class="car-upload" data-car="1" accept="image/*" style="display: none;">
-                                        <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;1&quot;]').click()">Upload Image</button>
+                                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                            <input type="file" class="car-upload" data-car="1" accept="image/*" style="display: none;">
+                                            <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;1&quot;]').click()">Upload Image</button>
+                                            <button class="btn btn-danger" onclick="removeCarImage(1)">Remove Image</button>
+                                        </div>
                                         <input type="text" class="car-url" data-car="1" placeholder="Or paste image URL" style="margin-top: 10px;">
                                     </div>
                                 </div>
@@ -228,8 +234,11 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                                             <img class="car-img" data-car="2" src="" alt="">
                                             <div class="image-overlay">No image</div>
                                         </div>
-                                        <input type="file" class="car-upload" data-car="2" accept="image/*" style="display: none;">
-                                        <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;2&quot;]').click()">Upload Image</button>
+                                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                            <input type="file" class="car-upload" data-car="2" accept="image/*" style="display: none;">
+                                            <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;2&quot;]').click()">Upload Image</button>
+                                            <button class="btn btn-danger" onclick="removeCarImage(2)">Remove Image</button>
+                                        </div>
                                         <input type="text" class="car-url" data-car="2" placeholder="Or paste image URL" style="margin-top: 10px;">
                                     </div>
                                 </div>
@@ -253,8 +262,11 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                                             <img class="car-img" data-car="3" src="" alt="">
                                             <div class="image-overlay">No image</div>
                                         </div>
-                                        <input type="file" class="car-upload" data-car="3" accept="image/*" style="display: none;">
-                                        <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;3&quot;]').click()">Upload Image</button>
+                                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                            <input type="file" class="car-upload" data-car="3" accept="image/*" style="display: none;">
+                                            <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;3&quot;]').click()">Upload Image</button>
+                                            <button class="btn btn-danger" onclick="removeCarImage(3)">Remove Image</button>
+                                        </div>
                                         <input type="text" class="car-url" data-car="3" placeholder="Or paste image URL" style="margin-top: 10px;">
                                     </div>
                                 </div>
@@ -278,8 +290,11 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                                             <img class="car-img" data-car="4" src="" alt="">
                                             <div class="image-overlay">No image</div>
                                         </div>
-                                        <input type="file" class="car-upload" data-car="4" accept="image/*" style="display: none;">
-                                        <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;4&quot;]').click()">Upload Image</button>
+                                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                            <input type="file" class="car-upload" data-car="4" accept="image/*" style="display: none;">
+                                            <button class="btn btn-secondary" onclick="document.querySelector('.car-upload[data-car=&quot;4&quot;]').click()">Upload Image</button>
+                                            <button class="btn btn-danger" onclick="removeCarImage(4)">Remove Image</button>
+                                        </div>
                                         <input type="text" class="car-url" data-car="4" placeholder="Or paste image URL" style="margin-top: 10px;">
                                     </div>
                                 </div>
@@ -342,8 +357,11 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                                     <img id="logo-img" src="" alt="Logo">
                                     <div class="image-overlay">Current Logo</div>
                                 </div>
-                                <input type="file" id="logo-upload" accept="image/*" style="display: none;">
-                                <button class="btn btn-secondary" onclick="document.getElementById('logo-upload').click()">Upload Logo</button>
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="file" id="logo-upload" accept="image/*" style="display: none;">
+                                    <button class="btn btn-secondary" onclick="document.getElementById('logo-upload').click()">Upload Logo</button>
+                                    <button class="btn btn-danger" onclick="removeLogo()">Remove Logo</button>
+                                </div>
                                 <input type="text" id="logo-url" placeholder="Or paste logo URL" style="margin-top: 10px;">
                             </div>
                         </div>
@@ -439,8 +457,11 @@ A minimalist, industrial space built for people who love to drive.</textarea>
                                     <img id="og-image" src="" alt="Open Graph Image">
                                     <div class="image-overlay">Social sharing image</div>
                                 </div>
-                                <input type="file" id="og-upload" accept="image/*" style="display: none;">
-                                <button class="btn btn-secondary" onclick="document.getElementById('og-upload').click()">Upload OG Image</button>
+                                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                    <input type="file" id="og-upload" accept="image/*" style="display: none;">
+                                    <button class="btn btn-secondary" onclick="document.getElementById('og-upload').click()">Upload OG Image</button>
+                                    <button class="btn btn-danger" onclick="removeOGImage()">Remove Image</button>
+                                </div>
                                 <input type="text" id="og-url" placeholder="Or paste image URL" style="margin-top: 10px;">
                                 <p class="form-hint">Recommended: 1200x630px</p>
                             </div>
