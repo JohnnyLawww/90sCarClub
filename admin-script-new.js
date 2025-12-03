@@ -376,6 +376,31 @@ async function saveSectionToAPI(section) {
     }
 }
 
+// Helper function to get valid image URL (not empty or placeholder)
+function getValidImageUrl(urlInputId, imgElementId) {
+    const urlInput = document.getElementById(urlInputId);
+    const imgElement = document.getElementById(imgElementId);
+    
+    // First check URL input field
+    if (urlInput && urlInput.value && urlInput.value.trim() !== '') {
+        return urlInput.value.trim();
+    }
+    
+    // Then check img src - but only if it's a real URL (not empty or relative placeholder)
+    if (imgElement && imgElement.src) {
+        const src = imgElement.src;
+        // Only return if it's a valid http/https URL (uploaded image)
+        if (src.startsWith('http://') || src.startsWith('https://')) {
+            // Don't return if it's just the page URL (empty src resolves to page URL)
+            if (!src.includes('/admin.html') && !src.endsWith('/')) {
+                return src;
+            }
+        }
+    }
+    
+    return ''; // Return empty string if no valid URL
+}
+
 function buildContentObject() {
     // Collect fleet cars data
     const cars = [];
@@ -400,8 +425,7 @@ function buildContentObject() {
             title1: document.getElementById('hero-title-1').value,
             title2: document.getElementById('hero-title-2').value,
             subtitle: document.getElementById('hero-subtitle').value,
-            backgroundImage: document.getElementById('hero-bg-url')?.value || 
-                           document.getElementById('hero-bg-img')?.src || ''
+            backgroundImage: getValidImageUrl('hero-bg-url', 'hero-bg-img')
         },
         about: {
             title: document.getElementById('about-title').value,
@@ -427,7 +451,7 @@ function buildContentObject() {
         },
         gallery: galleryImages,
         branding: {
-            logo: document.getElementById('logo-url')?.value || document.getElementById('logo-img')?.src || '',
+            logo: getValidImageUrl('logo-url', 'logo-img'),
             primaryColor: document.getElementById('primary-color-hex')?.value || '#FA2223',
             darkBg: document.getElementById('dark-bg-hex')?.value || '#1A1918',
             headingFont: document.getElementById('heading-font')?.value || 'Cormorant Garamond',
@@ -437,7 +461,7 @@ function buildContentObject() {
             title: document.getElementById('seo-title')?.value || '',
             description: document.getElementById('seo-description')?.value || '',
             keywords: document.getElementById('seo-keywords')?.value || '',
-            ogImage: document.getElementById('og-url')?.value || document.getElementById('og-image')?.src || ''
+            ogImage: getValidImageUrl('og-url', 'og-image')
         },
         contact: {
             email: document.getElementById('contact-email')?.value || '',

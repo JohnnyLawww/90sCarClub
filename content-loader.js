@@ -133,8 +133,8 @@ function applyContent(content) {
 }
 
 function applyBranding(branding) {
-    // Apply logo
-    if (branding.logo) {
+    // Apply logo - only if a valid URL is provided
+    if (branding.logo && branding.logo.trim() !== '') {
         const logos = document.querySelectorAll('.nav-logo-img, .loader-logo');
         logos.forEach(logo => {
             if (logo.tagName === 'IMG') {
