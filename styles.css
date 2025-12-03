@@ -472,7 +472,7 @@ body.loading {
     justify-content: flex-start;
     padding-top: 12vh;
     overflow: hidden;
-    background: linear-gradient(to bottom, #000000 0%, #1a1d24 60%, #1a1d24 100%);
+    background: linear-gradient(to bottom, #0a0a0a 0%, #12161d 50%, #1a1f27 100%);
 }
 
 .hero-content {
@@ -535,7 +535,7 @@ body.loading {
 /* Hero Car - positioned at bottom, full width */
 .hero-car {
     position: absolute;
-    bottom: 0;
+    bottom: -20px;
     left: 0;
     right: 0;
     width: 100%;
@@ -544,7 +544,7 @@ body.loading {
 
 .hero-car-img {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     height: auto;
 }
 
