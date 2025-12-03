@@ -100,7 +100,21 @@ function applyContent(content) {
                     
                     validCars.forEach((car, index) => {
                         const carCard = document.createElement('div');
-                        carCard.className = index === 0 ? 'gallery-item gallery-item-large' : 'gallery-item';
+                        
+                        // Apply layout classes based on position
+                        // Position 0: large (hero car)
+                        // Positions 1-3: regular
+                        // Positions 4-5: regular
+                        // Position 6: wide
+                        // Position 7: regular
+                        if (index === 0) {
+                            carCard.className = 'gallery-item gallery-item-large';
+                        } else if (index === 6) {
+                            carCard.className = 'gallery-item gallery-item-wide';
+                        } else {
+                            carCard.className = 'gallery-item';
+                        }
+                        
                         carCard.innerHTML = `
                             <div class="gallery-image-wrapper">
                                 <img src="${car.image}" alt="${car.name}" class="gallery-image">

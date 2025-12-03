@@ -402,13 +402,20 @@ function getValidImageUrl(urlInputId, imgElementId) {
 }
 
 function buildContentObject() {
-    // Collect fleet cars data
+    // Collect fleet cars data (8 cars)
     const cars = [];
-    for (let i = 1; i <= 4; i++) {
+    for (let i = 1; i <= 8; i++) {
         const name = document.querySelector(`.car-name[data-car="${i}"]`)?.value || '';
         const description = document.querySelector(`.car-description[data-car="${i}"]`)?.value || '';
-        const imageUrl = document.querySelector(`.car-url[data-car="${i}"]`)?.value || 
-                        document.querySelector(`.car-img[data-car="${i}"]`)?.src || '';
+        const urlInput = document.querySelector(`.car-url[data-car="${i}"]`);
+        const imgElement = document.querySelector(`.car-img[data-car="${i}"]`);
+        
+        let imageUrl = '';
+        if (urlInput && urlInput.value && urlInput.value.trim() !== '') {
+            imageUrl = urlInput.value.trim();
+        } else if (imgElement && imgElement.src && imgElement.src.startsWith('http') && !imgElement.src.includes('/admin.html')) {
+            imageUrl = imgElement.src;
+        }
         
         if (name || description || imageUrl) {
             cars.push({
@@ -736,8 +743,8 @@ function initImageUploads() {
         });
     }
     
-    // Fleet car image uploads
-    for (let i = 1; i <= 4; i++) {
+    // Fleet car image uploads (8 cars)
+    for (let i = 1; i <= 8; i++) {
         const carUpload = document.querySelector(`.car-upload[data-car="${i}"]`);
         const carUrl = document.querySelector(`.car-url[data-car="${i}"]`);
         const carPreview = document.querySelector(`.car-img[data-car="${i}"]`);
