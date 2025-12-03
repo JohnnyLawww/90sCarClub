@@ -472,7 +472,7 @@ body.loading {
     justify-content: flex-start;
     padding-top: 12vh;
     overflow: hidden;
-    background: #0a090e;
+    background: #000000;
 }
 
 .hero-content {
