@@ -10,28 +10,92 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* ============================================
-   AUTHENTICATION
+   AUTHENTICATION (Server-Side Validated)
    ============================================ */
 function checkAuth() {
-    const isAuthenticated = sessionStorage.getItem('bvcc_admin_auth');
-    if (isAuthenticated === 'true') {
-        showAdminPanel();
+    const authData = sessionStorage.getItem('bvcc_admin_auth');
+    if (authData) {
+        try {
+            const { token, expiry } = JSON.parse(authData);
+            // Check if token exists and hasn't expired
+            if (token && expiry && Date.now() < expiry) {
+                showAdminPanel();
+                return;
+            }
+        } catch (e) {
+            // Invalid auth data, clear it
+            sessionStorage.removeItem('bvcc_admin_auth');
+        }
     }
+}
+
+function getAuthToken() {
+    const authData = sessionStorage.getItem('bvcc_admin_auth');
+    if (authData) {
+        try {
+            const { token, expiry } = JSON.parse(authData);
+            if (token && expiry && Date.now() < expiry) {
+                return token;
+            }
+        } catch (e) {
+            return null;
+        }
+    }
+    return null;
 }
 
 function initLogin() {
     const loginForm = document.getElementById('loginForm');
+    const loginError = document.getElementById('loginError');
     
-    loginForm.addEventListener('submit', (e) => {
+    loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const password = document.getElementById('password').value;
+        const submitBtn = loginForm.querySelector('button[type="submit"]');
         
-        if (password === 'bvcc2024') {
-            sessionStorage.setItem('bvcc_admin_auth', 'true');
-            showAdminPanel();
-        } else {
-            alert('Incorrect password. Please try again.');
-            document.getElementById('password').value = '';
+        // Show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Verifying...';
+        if (loginError) loginError.style.display = 'none';
+        
+        try {
+            // Authenticate via server
+            const response = await fetch('/api/auth', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ password })
+            });
+            
+            const result = await response.json();
+            
+            if (result.success && result.token) {
+                // Store token securely in session
+                sessionStorage.setItem('bvcc_admin_auth', JSON.stringify({
+                    token: result.token,
+                    expiry: result.expiry
+                }));
+                showAdminPanel();
+            } else {
+                // Show error
+                if (loginError) {
+                    loginError.textContent = result.error || 'Invalid password';
+                    loginError.style.display = 'block';
+                } else {
+                    alert('Incorrect password. Please try again.');
+                }
+                document.getElementById('password').value = '';
+            }
+        } catch (error) {
+            console.error('Auth error:', error);
+            if (loginError) {
+                loginError.textContent = 'Authentication failed. Please try again.';
+                loginError.style.display = 'block';
+            } else {
+                alert('Authentication failed. Please try again.');
+            }
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Login';
         }
     });
 }
@@ -267,6 +331,13 @@ function initSaveButtons() {
 
 async function saveSectionToAPI(section) {
     const content = buildContentObject();
+    const token = getAuthToken();
+    
+    if (!token) {
+        showToast('❌ Session expired. Please login again.', 'error');
+        setTimeout(() => location.reload(), 1500);
+        return;
+    }
     
     try {
         showLoadingToast('Saving changes...');
@@ -277,7 +348,7 @@ async function saveSectionToAPI(section) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                password: 'bvcc2024',
+                token: token,
                 content: content
             })
         });

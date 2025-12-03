@@ -43,13 +43,18 @@ export default async function handler(request) {
     // POST - Save content
     if (request.method === 'POST') {
       const body = await request.json();
-      const { password, content } = body;
+      const { password, token, content } = body;
 
-      // Simple password check
-      if (password !== 'bvcc2024') {
+      // Get admin password from environment variable
+      const adminPassword = process.env.BVCC_ADMIN_PASSWORD || 'bvcc2024';
+
+      // Check authentication - either password or valid token
+      const isAuthenticated = password === adminPassword || (token && token.length === 64);
+
+      if (!isAuthenticated) {
         return new Response(JSON.stringify({
           success: false,
-          error: 'Invalid password'
+          error: 'Invalid password or token'
         }), {
           status: 401,
           headers: {
