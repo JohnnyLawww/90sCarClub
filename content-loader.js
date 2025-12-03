@@ -258,49 +258,75 @@ function applySEO(seo) {
 }
 
 function applyContactInfo(contact) {
-    // Add footer with contact and social if it doesn't exist
-    let footer = document.querySelector('.site-footer');
-    if (!footer && contact.social && contact.social.display) {
-        footer = document.createElement('footer');
-        footer.className = 'site-footer';
-        footer.style.cssText = 'background: var(--color-dark); color: white; padding: 3rem 1rem; text-align: center;';
+    // Update existing footer with contact info and social links
+    const footer = document.querySelector('.footer');
+    if (!footer) return;
+    
+    // Add contact email if provided
+    if (contact.email) {
+        const contactLink = footer.querySelector('a[href^="mailto:"]');
+        if (contactLink) {
+            contactLink.href = `mailto:${contact.email}`;
+            contactLink.textContent = 'Contact';
+        }
+    }
+    
+    // Add social media links if display is enabled
+    if (contact.social && contact.social.display) {
+        // Check if social links section exists
+        let socialCol = footer.querySelector('.footer-social');
         
-        let html = '<div style="max-width: 1200px; margin: 0 auto;">';
-        
-        // Contact info
-        if (contact.email || contact.phone) {
-            html += '<div style="margin-bottom: 2rem;">';
-            if (contact.email) html += `<p><a href="mailto:${contact.email}" style="color: white;">${contact.email}</a></p>`;
-            if (contact.phone) html += `<p>${contact.phone}</p>`;
-            if (contact.address) html += `<p>${contact.address}</p>`;
-            html += '</div>';
+        if (!socialCol) {
+            // Create social links section
+            const footerLinks = footer.querySelector('.footer-links');
+            if (footerLinks) {
+                socialCol = document.createElement('div');
+                socialCol.className = 'footer-col footer-social';
+                socialCol.innerHTML = '<h5>Follow Us</h5>';
+                footerLinks.appendChild(socialCol);
+            }
         }
         
-        // Social icons
-        if (contact.social.display) {
-            html += '<div class="social-links" style="display: flex; gap: 1.5rem; justify-content: center; margin: 2rem 0;">';
+        if (socialCol) {
+            // Clear existing social links (except h5)
+            const h5 = socialCol.querySelector('h5');
+            socialCol.innerHTML = '';
+            if (h5) socialCol.appendChild(h5);
+            else socialCol.innerHTML = '<h5>Follow Us</h5>';
             
+            // Add social links
             if (contact.social.instagram) {
-                html += `<a href="${contact.social.instagram}" target="_blank" style="color: white; font-size: 1.5rem;">📷</a>`;
-            }
-            if (contact.social.facebook) {
-                html += `<a href="${contact.social.facebook}" target="_blank" style="color: white; font-size: 1.5rem;">📘</a>`;
-            }
-            if (contact.social.twitter) {
-                html += `<a href="${contact.social.twitter}" target="_blank" style="color: white; font-size: 1.5rem;">🐦</a>`;
-            }
-            if (contact.social.youtube) {
-                html += `<a href="${contact.social.youtube}" target="_blank" style="color: white; font-size: 1.5rem;">📺</a>`;
+                const link = document.createElement('a');
+                link.href = contact.social.instagram;
+                link.target = '_blank';
+                link.textContent = 'Instagram';
+                socialCol.appendChild(link);
             }
             
-            html += '</div>';
+            if (contact.social.facebook) {
+                const link = document.createElement('a');
+                link.href = contact.social.facebook;
+                link.target = '_blank';
+                link.textContent = 'Facebook';
+                socialCol.appendChild(link);
+            }
+            
+            if (contact.social.twitter) {
+                const link = document.createElement('a');
+                link.href = contact.social.twitter;
+                link.target = '_blank';
+                link.textContent = 'Twitter';
+                socialCol.appendChild(link);
+            }
+            
+            if (contact.social.youtube) {
+                const link = document.createElement('a');
+                link.href = contact.social.youtube;
+                link.target = '_blank';
+                link.textContent = 'YouTube';
+                socialCol.appendChild(link);
+            }
         }
-        
-        html += '<p style="margin-top: 2rem; opacity: 0.7; font-size: 0.875rem;">© 2024 Brooklyn Vintage Car Club. All rights reserved.</p>';
-        html += '</div>';
-        
-        footer.innerHTML = html;
-        document.body.appendChild(footer);
     }
 }
 
