@@ -1502,11 +1502,10 @@ body.loading {
     }
     
     .hero {
-        background-attachment: scroll;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        animation: none;
+        padding-top: 8vh;
+        height: auto;
+        min-height: auto;
+        padding-bottom: 0;
     }
     
     .hero-title {
@@ -1520,6 +1519,15 @@ body.loading {
     
     .hero-cta .btn {
         width: 100%;
+    }
+    
+    .hero-car {
+        position: relative;
+        margin-top: 2rem;
+    }
+    
+    .hero-car-img {
+        max-width: 100%;
     }
     
     .about-grid {
