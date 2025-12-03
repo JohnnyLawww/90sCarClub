@@ -472,7 +472,7 @@ body.loading {
     justify-content: flex-start;
     padding-top: 12vh;
     overflow: hidden;
-    background: #000000 !important;
+    background: #3d4148 !important;
 }
 
 .hero-content {
@@ -545,6 +545,7 @@ body.loading {
     width: 90%;
     max-width: 900px;
     height: auto;
+    mix-blend-mode: multiply;
 }
 
 /* ============================================
