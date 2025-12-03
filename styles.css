@@ -471,18 +471,19 @@ body.loading {
     justify-content: center;
     overflow: hidden;
     background-image: linear-gradient(rgba(26, 25, 24, 0.7), rgba(26, 25, 24, 0.7)), url('stock photos/AdobeStock_686292492_Editorial_Use_Only.jpeg');
-    background-size: cover;
+    background-size: 100% auto;
     background-position: center;
     background-attachment: fixed;
+    background-repeat: no-repeat;
     animation: heroZoom 20s ease-in-out infinite alternate;
 }
 
 @keyframes heroZoom {
     0% {
-        background-size: cover;
+        background-size: 100% auto;
     }
     100% {
-        background-size: 110% auto;
+        background-size: 115% auto;
     }
 }
 
