@@ -1522,7 +1522,7 @@ body.loading {
         flex-shrink: 0;
         position: relative;
         z-index: 2;
-        padding-bottom: 35vh;
+        padding-bottom: 45vh;
     }
     
     .hero-title {
