@@ -670,8 +670,8 @@ body.loading {
 
 /* Simple 3-image gallery for Fleet Philosophy */
 .fleet-gallery.fleet-gallery-simple {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     gap: var(--space-md);
     max-width: 1200px;
     margin: 0 auto var(--space-lg);
@@ -679,8 +679,10 @@ body.loading {
 }
 
 .fleet-gallery-simple .gallery-item {
+    grid-column: span 1 !important;
     border-radius: 4px;
     overflow: hidden;
+    box-shadow: none;
 }
 
 .fleet-gallery-simple .gallery-image-wrapper {
@@ -1514,48 +1516,10 @@ body.loading {
 }
 
 @media (max-width: 1024px) {
-    .about-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-lg);
-    }
-    
-    .about-intro {
-        padding-right: 0;
-    }
-    
-    .about-content {
-        padding-top: 0;
-    }
-    
-    .about-stats {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .location-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: var(--space-lg);
-    }
-    
-    .location-content {
-        padding-right: 0;
-    }
-    
+    .about-grid,
+    .location-grid,
     .membership-grid {
-        grid-template-columns: 1fr 1fr;
         gap: var(--space-lg);
-    }
-    
-    .membership-content {
-        padding-right: 0;
-    }
-    
-    .contact-grid {
-        grid-template-columns: 1fr;
-        gap: var(--space-xl);
-    }
-    
-    .form-row {
-        grid-template-columns: 1fr;
     }
 }
 @media (max-width: 768px) {
@@ -1608,14 +1572,8 @@ body.loading {
         gap: var(--space-lg);
     }
     
-    .fleet-gallery-simple {
-        grid-template-columns: 1fr;
-        gap: var(--space-md);
-    }
-    
-    .fleet-gallery {
-        grid-template-columns: 1fr;
-        padding: 0 var(--container-padding);
+    .fleet-gallery.fleet-gallery-simple {
+        grid-template-columns: 1fr !important;
     }
     
     .form-row {
