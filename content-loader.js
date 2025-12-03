@@ -3,11 +3,11 @@
    
    Client can edit via admin panel (/admin.html):
    - Logo
-   - Hero section text
-   - About section text
-   - Location section text
-   - Fleet section text
-   - Membership section text
+   - Hero section text + background image
+   - About section text + image
+   - Location section text + image
+   - Fleet section text + gallery images
+   - Membership section text + image
    - Contact info (email, phone, address, hours)
    
    Design/styling stays from CSS (not editable by client)
@@ -37,33 +37,39 @@ async function loadContent() {
             if (content.fleet) applyFleet(content.fleet);
             if (content.membership) applyMembership(content.membership);
             if (content.contact) applyContactInfo(content.contact);
+            
+            // Apply gallery images
+            if (content.gallery) applyGallery(content.gallery);
         }
     } catch (error) {
         console.log('Using default content from HTML');
     }
 }
 
-function applyLogo(logoUrl) {
-    if (!logoUrl || logoUrl.trim() === '') return;
-    
-    // Only apply if it's a valid image URL
-    const url = logoUrl.trim().toLowerCase();
-    const isValidImage = (
-        (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('logos/')) &&
-        (url.includes('.svg') || url.includes('.png') || url.includes('.jpg') || 
-         url.includes('.jpeg') || url.includes('.webp') || url.includes('blob.vercel-storage.com'))
+function isValidImageUrl(url) {
+    if (!url || url.trim() === '') return false;
+    const u = url.trim().toLowerCase();
+    return (
+        (u.startsWith('http://') || u.startsWith('https://') || 
+         u.startsWith('stock photos/') || u.startsWith('logos/')) &&
+        (u.includes('.svg') || u.includes('.png') || u.includes('.jpg') || 
+         u.includes('.jpeg') || u.includes('.webp') || u.includes('.gif') ||
+         u.includes('blob.vercel-storage.com'))
     );
+}
+
+function applyLogo(logoUrl) {
+    if (!isValidImageUrl(logoUrl)) return;
     
-    if (isValidImage) {
-        document.querySelectorAll('.nav-logo-img, .loader-logo, .footer-logo-img').forEach(img => {
-            if (img.tagName === 'IMG') {
-                img.src = logoUrl;
-            }
-        });
-    }
+    document.querySelectorAll('.nav-logo-img, .loader-logo, .footer-logo-img').forEach(img => {
+        if (img.tagName === 'IMG') {
+            img.src = logoUrl;
+        }
+    });
 }
 
 function applyHero(hero) {
+    // Text content
     if (hero.title1) {
         const line1 = document.querySelector('.hero-title .title-line:first-child');
         if (line1) line1.textContent = hero.title1;
@@ -76,12 +82,21 @@ function applyHero(hero) {
         const subtitle = document.querySelector('.hero-subtitle');
         if (subtitle) subtitle.innerHTML = hero.subtitle;
     }
+    
+    // Background image
+    if (hero.backgroundImage && isValidImageUrl(hero.backgroundImage)) {
+        const heroSection = document.querySelector('.hero');
+        if (heroSection) {
+            heroSection.style.backgroundImage = `linear-gradient(rgba(26, 25, 24, 0.5), rgba(26, 25, 24, 0.5)), url('${hero.backgroundImage}')`;
+        }
+    }
 }
 
 function applyAbout(about) {
     const section = document.querySelector('.about');
     if (!section) return;
     
+    // Text content
     if (about.title) {
         const title = section.querySelector('.section-title');
         if (title) title.innerHTML = about.title;
@@ -90,17 +105,23 @@ function applyAbout(about) {
         const lead = section.querySelector('.about-lead');
         if (lead) lead.textContent = about.lead;
     }
-    // Apply additional paragraphs
     const paragraphs = section.querySelectorAll('.about-content p:not(.about-lead)');
     if (about.p1 && paragraphs[0]) paragraphs[0].textContent = about.p1;
     if (about.p2 && paragraphs[1]) paragraphs[1].textContent = about.p2;
     if (about.p3 && paragraphs[2]) paragraphs[2].textContent = about.p3;
+    
+    // Image
+    if (about.image && isValidImageUrl(about.image)) {
+        const img = section.querySelector('.about-img');
+        if (img) img.src = about.image;
+    }
 }
 
 function applyLocation(location) {
     const section = document.querySelector('.location');
     if (!section) return;
     
+    // Text content
     if (location.title) {
         const title = section.querySelector('.section-title');
         if (title) title.innerHTML = location.title;
@@ -113,12 +134,19 @@ function applyLocation(location) {
         const text = section.querySelector('.location-content p:not(.location-lead)');
         if (text) text.textContent = location.text;
     }
+    
+    // Image
+    if (location.image && isValidImageUrl(location.image)) {
+        const img = section.querySelector('.location-img');
+        if (img) img.src = location.image;
+    }
 }
 
 function applyFleet(fleet) {
     const section = document.querySelector('.fleet');
     if (!section) return;
     
+    // Text content
     if (fleet.title) {
         const title = section.querySelector('.section-title');
         if (title) title.innerHTML = fleet.title;
@@ -135,12 +163,23 @@ function applyFleet(fleet) {
         const note = section.querySelector('.fleet-note');
         if (note) note.textContent = fleet.note;
     }
+    
+    // Fleet gallery images
+    if (fleet.images && Array.isArray(fleet.images)) {
+        const galleryImages = section.querySelectorAll('.fleet-gallery-simple .gallery-item img');
+        fleet.images.forEach((imgUrl, index) => {
+            if (galleryImages[index] && isValidImageUrl(imgUrl)) {
+                galleryImages[index].src = imgUrl;
+            }
+        });
+    }
 }
 
 function applyMembership(membership) {
     const section = document.querySelector('.membership');
     if (!section) return;
     
+    // Text content
     if (membership.title) {
         const title = section.querySelector('.section-title');
         if (title) title.innerHTML = membership.title;
@@ -148,6 +187,29 @@ function applyMembership(membership) {
     if (membership.lead) {
         const lead = section.querySelector('.membership-lead');
         if (lead) lead.textContent = membership.lead;
+    }
+    
+    // Image
+    if (membership.image && isValidImageUrl(membership.image)) {
+        const img = section.querySelector('.membership-img');
+        if (img) img.src = membership.image;
+    }
+}
+
+function applyGallery(gallery) {
+    // Apply images to main gallery if exists
+    if (gallery.images && Array.isArray(gallery.images)) {
+        const galleryItems = document.querySelectorAll('.gallery-item img, .fleet-gallery-simple .gallery-item img');
+        gallery.images.forEach((imgData, index) => {
+            if (galleryItems[index]) {
+                if (typeof imgData === 'string' && isValidImageUrl(imgData)) {
+                    galleryItems[index].src = imgData;
+                } else if (imgData.url && isValidImageUrl(imgData.url)) {
+                    galleryItems[index].src = imgData.url;
+                    if (imgData.alt) galleryItems[index].alt = imgData.alt;
+                }
+            }
+        });
     }
 }
 
