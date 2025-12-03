@@ -293,12 +293,19 @@ function applyContactInfo(contact) {
     const footer = document.querySelector('.footer');
     if (!footer) return;
     
-    // Add contact email if provided
+    // Add contact email if provided - both as mailto link and visible in contact column
     if (contact.email) {
+        // Update the mailto link in Join column
         const contactLink = footer.querySelector('a[href^="mailto:"]');
         if (contactLink) {
             contactLink.href = `mailto:${contact.email}`;
             contactLink.textContent = 'Contact';
+        }
+        
+        // Also show email in contact column
+        const emailEl = footer.querySelector('.contact-email-display');
+        if (emailEl) {
+            emailEl.innerHTML = `<a href="mailto:${contact.email}">${contact.email}</a>`;
         }
     }
     
