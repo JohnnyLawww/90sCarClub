@@ -83,13 +83,8 @@ function applyHero(hero) {
         if (subtitle) subtitle.innerHTML = hero.subtitle;
     }
     
-    // Background image
-    if (hero.backgroundImage && isValidImageUrl(hero.backgroundImage)) {
-        const heroSection = document.querySelector('.hero');
-        if (heroSection) {
-            heroSection.style.backgroundImage = `linear-gradient(rgba(26, 25, 24, 0.5), rgba(26, 25, 24, 0.5)), url('${hero.backgroundImage}')`;
-        }
-    }
+    // Background image - DISABLED, using solid dark bg with car image below
+    // Hero car image is now a separate element, not a background
 }
 
 function applyAbout(about) {
