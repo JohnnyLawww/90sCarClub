@@ -33,14 +33,15 @@
     --text-3xl: clamp(2.25rem, 1.75rem + 2.5vw, 4.5rem);
     --text-4xl: clamp(3rem, 2rem + 5vw, 7rem);
     
-    /* Spacing - Tighter for less dead space */
-    --space-xs: 0.5rem;
-    --space-sm: 0.75rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 2.5rem;
-    --space-3xl: 3rem;
+    /* Spacing - TIGHT for minimal dead space */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 0.75rem;
+    --space-lg: 1rem;
+    --space-xl: 1.5rem;
+    --space-2xl: 2rem;
+    --space-3xl: 2.5rem;
+    --section-padding: 3rem;  /* Consistent section padding */
     
     /* Layout */
     --container-max: 1400px;
@@ -536,7 +537,7 @@ body.loading {
    ABOUT SECTION
    ============================================ */
 .about {
-    padding: var(--space-2xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg);
 }
 
@@ -603,7 +604,7 @@ body.loading {
    LOCATION SECTION
    ============================================ */
 .location {
-    padding: var(--space-2xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg-alt);
 }
 
@@ -652,7 +653,7 @@ body.loading {
    FLEET SECTION
    ============================================ */
 .fleet {
-    padding: var(--space-2xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg);
 }
 
@@ -727,7 +728,7 @@ body.loading {
    WAITLIST SECTION
    ============================================ */
 .waitlist {
-    padding: var(--space-2xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg-alt);
 }
 
@@ -788,19 +789,19 @@ body.loading {
    LOCATION SECTION
    ============================================ */
 .location {
-    padding: var(--space-3xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg-alt);
 }
 
 .location-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--space-2xl);
+    gap: var(--space-xl);
     align-items: center;
 }
 
 .location-content {
-    padding-right: var(--space-xl);
+    padding-right: var(--space-lg);
 }
 
 .location-lead {
@@ -830,13 +831,13 @@ body.loading {
    FLEET SECTION (was COLLECTION)
    ============================================ */
 .fleet {
-    padding: var(--space-3xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg);
 }
 
 .fleet-header {
     max-width: 700px;
-    margin: 0 auto var(--space-3xl);
+    margin: 0 auto var(--space-xl);
     text-align: center;
 }
 
@@ -844,7 +845,7 @@ body.loading {
     font-size: var(--text-lg);
     color: var(--color-text-muted);
     line-height: 1.7;
-    margin-top: var(--space-md);
+    margin-top: var(--space-sm);
 }
 
 .fleet-gallery {
@@ -853,14 +854,14 @@ body.loading {
     gap: var(--space-lg);
     padding: 0 var(--container-padding);
     max-width: 1600px;
-    margin: 0 auto var(--space-3xl);
+    margin: 0 auto var(--space-xl);
 }
 
 .fleet-details {
     max-width: 800px;
-    margin: var(--space-3xl) auto 0;
+    margin: var(--space-xl) auto 0;
     text-align: center;
-    padding: var(--space-2xl);
+    padding: var(--space-lg);
     background: var(--color-bg-alt);
     border-radius: 8px;
     border-left: 4px solid var(--color-accent);
@@ -881,13 +882,13 @@ body.loading {
    COLLECTION SECTION
    ============================================ */
 .collection {
-    padding: var(--space-3xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg-alt);
 }
 
 .collection-header {
     max-width: 600px;
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);
 }
 
 .collection-intro {
@@ -1000,7 +1001,7 @@ body.loading {
    QUOTE SECTION
    ============================================ */
 .quote-section {
-    padding: var(--space-3xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg-dark);
 }
 
@@ -1034,7 +1035,7 @@ body.loading {
    MEMBERSHIP SECTION
    ============================================ */
 .membership {
-    padding: var(--space-2xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg);
 }
 
@@ -1143,12 +1144,12 @@ body.loading {
    EVENTS SECTION
    ============================================ */
 .events {
-    padding: var(--space-3xl) 0;
+    padding: var(--section-padding) 0;
     background: var(--color-bg-alt);
 }
 
 .events-header {
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);
 }
 
 .events-list {
@@ -1387,7 +1388,7 @@ body.loading {
    FOOTER
    ============================================ */
 .footer {
-    padding: var(--space-2xl) 0 var(--space-xl);
+    padding: var(--space-xl) 0 var(--space-lg);
     background: var(--color-bg-dark);
     color: var(--color-white);
 }
@@ -1396,7 +1397,7 @@ body.loading {
     display: flex;
     justify-content: space-between;
     align-items: start;
-    margin-bottom: var(--space-2xl);
+    margin-bottom: var(--space-lg);
 }
 
 .footer-logo {
