@@ -89,19 +89,23 @@ function applyContent(content) {
         if (fleetNote && content.fleet.note) fleetNote.textContent = content.fleet.note;
         
         // Apply fleet car images
-        if (content.fleet.cars && Array.isArray(content.fleet.cars)) {
+        if (content.fleet.cars && Array.isArray(content.fleet.cars) && content.fleet.cars.length > 0) {
             const fleetGallery = document.querySelector('.fleet-gallery');
-            if (fleetGallery && content.fleet.cars.length > 0) {
+            if (fleetGallery) {
                 fleetGallery.innerHTML = ''; // Clear existing
                 
                 content.fleet.cars.forEach((car, index) => {
                     if (car.image || car.name) {
                         const carCard = document.createElement('div');
-                        carCard.className = 'fleet-car';
+                        carCard.className = index === 0 ? 'gallery-item gallery-item-large' : 'gallery-item';
                         carCard.innerHTML = `
-                            <img src="${car.image || 'stock photos/placeholder.jpg'}" alt="${car.name || 'Car'}">
-                            <h3>${car.name || ''}</h3>
-                            ${car.description ? `<p>${car.description}</p>` : ''}
+                            <div class="gallery-image-wrapper">
+                                <img src="${car.image || 'stock photos/AdobeStock_756001685_Editorial_Use_Only.jpeg'}" alt="${car.name || 'Car'}" class="gallery-image">
+                            </div>
+                            <div class="gallery-info">
+                                <h3 class="gallery-name">${car.name || ''}</h3>
+                                ${car.description ? `<p class="gallery-desc">${car.description}</p>` : ''}
+                            </div>
                         `;
                         fleetGallery.appendChild(carCard);
                     }
@@ -128,7 +132,7 @@ function applyContent(content) {
 function applyBranding(branding) {
     // Apply logo
     if (branding.logo) {
-        const logos = document.querySelectorAll('.logo');
+        const logos = document.querySelectorAll('.nav-logo-img, .loader-logo');
         logos.forEach(logo => {
             if (logo.tagName === 'IMG') {
                 logo.src = branding.logo;
@@ -139,9 +143,13 @@ function applyBranding(branding) {
     // Apply colors via CSS variables
     const root = document.documentElement;
     if (branding.primaryColor) {
+        root.style.setProperty('--color-accent', branding.primaryColor);
+        root.style.setProperty('--color-accent-hover', branding.primaryColor);
         root.style.setProperty('--color-primary', branding.primaryColor);
     }
     if (branding.darkBg) {
+        root.style.setProperty('--color-bg-dark', branding.darkBg);
+        root.style.setProperty('--color-text', branding.darkBg);
         root.style.setProperty('--color-dark', branding.darkBg);
     }
     
@@ -155,28 +163,36 @@ function applyBranding(branding) {
         }
         
         let css = '';
-        if (branding.headingFont) {
+        if (branding.headingFont && branding.headingFont !== 'Cormorant Garamond') {
             css += `h1, h2, h3, h4, h5, h6, .section-title, .hero-title { font-family: '${branding.headingFont}', serif !important; }\n`;
+            root.style.setProperty('--font-serif', `'${branding.headingFont}', serif`);
         }
-        if (branding.bodyFont) {
+        if (branding.bodyFont && branding.bodyFont !== 'Inter') {
             css += `body, p, a, input, textarea, button { font-family: '${branding.bodyFont}', sans-serif !important; }\n`;
+            root.style.setProperty('--font-sans', `'${branding.bodyFont}', sans-serif`);
         }
         style.textContent = css;
         
         // Load Google Fonts
         if (branding.headingFont || branding.bodyFont) {
             const fonts = [];
-            if (branding.headingFont) fonts.push(branding.headingFont.replace(/ /g, '+'));
-            if (branding.bodyFont) fonts.push(branding.bodyFont.replace(/ /g, '+'));
-            
-            let fontLink = document.getElementById('dynamic-font-link');
-            if (!fontLink) {
-                fontLink = document.createElement('link');
-                fontLink.id = 'dynamic-font-link';
-                fontLink.rel = 'stylesheet';
-                document.head.appendChild(fontLink);
+            if (branding.headingFont && branding.headingFont !== 'Cormorant Garamond') {
+                fonts.push(branding.headingFont.replace(/ /g, '+'));
             }
-            fontLink.href = `https://fonts.googleapis.com/css2?${fonts.map(f => `family=${f}:wght@400;600;700`).join('&')}&display=swap`;
+            if (branding.bodyFont && branding.bodyFont !== 'Inter') {
+                fonts.push(branding.bodyFont.replace(/ /g, '+'));
+            }
+            
+            if (fonts.length > 0) {
+                let fontLink = document.getElementById('dynamic-font-link');
+                if (!fontLink) {
+                    fontLink = document.createElement('link');
+                    fontLink.id = 'dynamic-font-link';
+                    fontLink.rel = 'stylesheet';
+                    document.head.appendChild(fontLink);
+                }
+                fontLink.href = `https://fonts.googleapis.com/css2?${fonts.map(f => `family=${f}:wght@400;600;700`).join('&')}&display=swap`;
+            }
         }
     }
 }
