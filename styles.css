@@ -535,17 +535,16 @@ body.loading {
 /* Hero Car - positioned at bottom, full width, black bg image */
 .hero-car {
     position: absolute;
-    bottom: -30px;
+    bottom: 0;
     left: 0;
     right: 0;
     width: 100%;
     text-align: center;
-    overflow: hidden;
 }
 
 .hero-car-img {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     height: auto;
 }
 
