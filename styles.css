@@ -470,18 +470,18 @@ body.loading {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-image: linear-gradient(rgba(26, 25, 24, 0.5), rgba(26, 25, 24, 0.5)), url('stock photos/AdobeStock_788813990_Preview_Editorial_Use_Only.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: var(--color-bg-dark);
 }
 
 .hero-content {
     position: relative;
     z-index: 2;
     max-width: 900px;
-    padding: 0 var(--container-padding);
+    padding: var(--space-xl) var(--container-padding);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .tag-line {
@@ -531,6 +531,21 @@ body.loading {
     justify-content: center;
     gap: var(--space-md);
     flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+}
+
+/* Hero Car Image - below buttons */
+.hero-car {
+    margin-top: var(--space-lg);
+    display: flex;
+    justify-content: center;
+}
+
+.hero-car-img {
+    max-width: 700px;
+    width: 90%;
+    height: auto;
+    object-fit: contain;
 }
 
 /* ============================================
@@ -679,8 +694,17 @@ body.loading {
     grid-template-columns: repeat(3, 1fr) !important;
     gap: var(--space-md);
     max-width: 1200px;
-    margin: 0 auto var(--space-lg);
+    margin: 0 auto;
     padding: 0 var(--container-padding);
+}
+
+/* Fleet acquisition text - below gallery */
+.fleet-acquisition {
+    text-align: center;
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+    margin: var(--space-lg) auto;
+    max-width: 700px;
 }
 
 .fleet-gallery-simple .gallery-item {
