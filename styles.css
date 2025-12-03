@@ -535,16 +535,17 @@ body.loading {
 
 /* Hero Car Image - directly under buttons, tight spacing */
 .hero-car {
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
 .hero-car-img {
-    max-width: 550px;
-    width: 80%;
+    max-width: 480px;
+    width: 75%;
     height: auto;
+    border-radius: 0;
 }
 
 /* ============================================
