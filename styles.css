@@ -1305,13 +1305,13 @@ body.loading {
     text-transform: uppercase;
     color: var(--color-text);
     margin-bottom: var(--space-sm);
-    white-space: normal;
     line-height: 1.5;
 }
 
 .form-group label .required {
     color: var(--color-accent);
-    white-space: nowrap;
+    display: inline;
+    margin-left: 0.2em;
 }
 
 .form-group input,
