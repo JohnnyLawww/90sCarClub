@@ -1,20 +1,272 @@
-# Brooklyn Vintage Car Club (BVCC)# ANALOG — Private Drivers' Club
+# Brooklyn Vintage Car Club (BVCC)# Brooklyn Vintage Car Club (BVCC)# ANALOG — Private Drivers' Club
 
 
 
-A premium website with custom CMS for a private vintage car club in Brooklyn, NY.A premium, minimalist website for a private drivers' club dedicated to analog performance cars from the golden era of driving (1990–2005).
+A premium website with custom CMS for a private vintage car club in Brooklyn, NY.
 
 
 
-![BVCC Logo](logos/Red.svg)![ANALOG Preview](https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2070&auto=format&fit=crop)
+![BVCC Logo](logos/Red.svg)A premium website with custom CMS for a private vintage car club in Brooklyn, NY.A premium, minimalist website for a private drivers' club dedicated to analog performance cars from the golden era of driving (1990–2005).
 
 
 
-## 🔗 Live Demo## 🔗 Live Demo
+## 🔗 Live Site
 
 
 
-**[View Live Site →](https://90s-car-club.vercel.app)****[View Live Site →](https://90s-car-club.vercel.app)**
+**[brooklynvintagecarclub.com →](https://brooklynvintagecarclub.com/)**![BVCC Logo](logos/Red.svg)![ANALOG Preview](https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=2070&auto=format&fit=crop)
+
+
+
+---
+
+
+
+## 📋 Overview## 🔗 Live Demo## 🔗 Live Demo
+
+
+
+Brooklyn Vintage Car Club is an exclusive members-only collective for enthusiasts of vintage and classic performance vehicles. The website features a fully editable CMS admin panel for easy content management.
+
+
+
+### Key Features:**[View Live Site →](https://90s-car-club.vercel.app)****[View Live Site →](https://90s-car-club.vercel.app)**
+
+- **Custom CMS** — Full admin panel to edit all content, images, and sections
+
+- **Dark editorial design** — Premium magazine-style aesthetic
+
+- **Waitlist system** — Collect member applications with database storage
+
+- **Image uploads** — Upload and manage images via Vercel Blob storage------
+
+- **Responsive** — Optimized for desktop, tablet, and mobile
+
+
+
+---
+
+## 📋 Overview## 📋 Overview
+
+## ✨ Site Sections
+
+
+
+| Section | Description |
+
+|---------|-------------|Brooklyn Vintage Car Club is an exclusive members-only collective for enthusiasts of vintage and classic performance vehicles. The website features a fully editable CMS admin panel for easy content management.ANALOG is a members-only collective for enthusiasts who appreciate the mechanical purity of 90s and early 2000s performance vehicles — before traction control, drive modes, and algorithms took over.
+
+| **Hero** | Full-screen introduction with club branding |
+
+| **About** | Club story and mission |
+
+| **Location** | Brooklyn clubhouse information |
+
+| **Fleet** | Featured vehicles and collection |### Key Features:This project showcases a premium editorial design approach with:
+
+| **Membership** | Member benefits and requirements |
+
+| **Gallery** | Image showcase |- **Custom CMS** — Full admin panel to edit all content, images, and sections- Clean, magazine-style layouts
+
+| **Contact** | Contact information and hours |
+
+| **Waitlist** | Member application form |- **Dark editorial design** — Premium magazine-style aesthetic- Strong typographic hierarchy
+
+
+
+---- **Waitlist system** — Collect member applications with database storage- Restrained, sophisticated color palette
+
+
+
+## 🛠 Tech Stack- **Image uploads** — Upload and manage images via Vercel Blob storage- Thoughtful micro-interactions
+
+
+
+| Technology | Purpose |- **Responsive** — Optimized for desktop, tablet, and mobile
+
+|------------|---------|
+
+| HTML5 | Semantic markup |---
+
+| CSS3 | Custom properties, Grid, Flexbox |
+
+| Vanilla JavaScript | Interactions and CMS functionality |---
+
+| Vercel | Hosting and Edge Functions |
+
+| Vercel KV | Redis database for content storage |## ✨ Features
+
+| Vercel Blob | Image storage |
+
+## ✨ Site Sections
+
+**No frameworks. No build step. Clean, performant code.**
+
+### Design
+
+---
+
+| Section | Description |- **Editorial Typography** — Cormorant Garamond paired with Inter for a refined, magazine-quality feel
+
+## 🔐 Admin Panel
+
+|---------|-------------|- **Minimalist Aesthetic** — Generous whitespace, clean grids, restrained imagery
+
+Access the admin panel at `/admin.html` to edit:
+
+- All text content across sections| **Hero** | Full-screen introduction with club branding |- **Sophisticated Color Palette** — Warm off-whites, deep charcoals, muted bronze accents
+
+- Hero, About, Location, Fleet, Membership images
+
+- Gallery images| **About** | Club story and mission |- **Asymmetric Grid Layouts** — Magazine-inspired image placement
+
+- Logo and branding
+
+- Contact information| **Location** | Brooklyn clubhouse information |
+
+- SEO metadata
+
+- View waitlist submissions| **Fleet** | Featured vehicles and collection |### Interactions
+
+
+
+**Default password:** `bvcc2024` (change via environment variable)| **Membership** | Member benefits and requirements |- **Page Loader** — Branded loading animation
+
+
+
+---| **Gallery** | Image showcase |- **Parallax Hero** — Subtle depth on scroll
+
+
+
+## 🚀 Getting Started| **Contact** | Contact information and hours |- **Scroll Animations** — Elements gracefully reveal as you navigate
+
+
+
+### Run locally| **Waitlist** | Member application form |- **Custom Cursor** — Magnetic hover effects (desktop)
+
+```bash
+
+# Using Python- **Gallery Hover States** — Smooth zoom and info reveals
+
+python3 -m http.server 8080
+
+---- **Animated Counters** — Statistics come to life
+
+# Using Node.js
+
+npx serve- **Scroll Progress Indicator** — Visual reading progress
+
+```
+
+## 🛠 Tech Stack
+
+Then visit `http://localhost:8080`
+
+### Sections
+
+> **Note:** API routes (content saving, image uploads) only work when deployed to Vercel.
+
+| Technology | Purpose || Section | Description |
+
+---
+
+|------------|---------||---------|-------------|
+
+## ⚙️ Environment Variables
+
+| HTML5 | Semantic markup || **Hero** | Full-bleed cinematic introduction with staggered text animations |
+
+Set these in Vercel project settings:
+
+| CSS3 | Custom properties, Grid, Flexbox || **About** | Two-column editorial layout with club statistics |
+
+```
+
+BVCC_KV_REST_API_URL     # Vercel KV REST endpoint| Vanilla JavaScript | Interactions and CMS functionality || **Collection** | Asymmetric gallery showcasing era-defining vehicles |
+
+BVCC_KV_REST_API_TOKEN   # Vercel KV auth token  
+
+BLOB_READ_WRITE_TOKEN    # Vercel Blob storage token| Vercel | Hosting and Edge Functions || **Quote** | Visual breathing room with club philosophy |
+
+BVCC_ADMIN_PASSWORD      # Admin login password
+
+```| Vercel KV | Redis database for content storage || **Membership** | Requirements, benefits, and pricing |
+
+
+
+---| Vercel Blob | Image storage || **Events** | Upcoming drives and track days with status badges |
+
+
+
+## 📁 Project Structure| **Contact** | Application form with elegant validation |
+
+
+
+```**No frameworks. No build step. Clean, performant code.**
+
+BVCC/
+
+├── index.html           # Public website---
+
+├── admin.html           # Admin panel
+
+├── styles.css           # All styling---
+
+├── script.js            # UI interactions
+
+├── content-loader.js    # CMS content fetching## 🛠 Tech Stack
+
+├── admin-script-new.js  # Admin panel functionality
+
+├── api/## 🔐 Admin Panel
+
+│   ├── auth.js          # Authentication
+
+│   ├── content.js       # Content CRUD| Technology | Purpose |
+
+│   ├── upload.js        # Image uploads
+
+│   └── submissions.js   # Waitlist submissionsAccess the admin panel at `/admin.html` to edit:|------------|---------|
+
+├── logos/               # SVG logos
+
+└── stock photos/        # Default images- All text content across sections| HTML5 | Semantic markup |
+
+```
+
+- Hero, About, Location, Fleet, Membership images| CSS3 | Custom properties, Grid, Flexbox, Animations |
+
+---
+
+- Gallery images| Vanilla JavaScript | Interactions, scroll effects, form handling |
+
+## 🎨 Design System
+
+- Logo and branding| Google Fonts | Cormorant Garamond, Inter |
+
+### Colors
+
+```css- Contact information
+
+--color-bg: #1A1918;          /* Dark background */
+
+--color-accent: #FA2223;      /* BVCC Red */- SEO metadata**No frameworks. No dependencies. Just clean, performant code.**
+
+--color-text: #FAFAF8;        /* Light text */
+
+```- View waitlist submissions
+
+
+
+### Typography---
+
+```css
+
+--font-serif: 'Cormorant Garamond';  /* Headings */**Default password:** `bvcc2024` (change via environment variable)
+
+--font-sans: 'Inter';                /* Body text */
+
+```## 📱 Responsive Design
 
 
 
@@ -22,129 +274,25 @@ A premium website with custom CMS for a private vintage car club in Brooklyn, NY
 
 
 
-## 📋 Overview## 📋 Overview
+## 📄 LicenseFully responsive across all devices:
 
 
 
-Brooklyn Vintage Car Club is an exclusive members-only collective for enthusiasts of vintage and classic performance vehicles. The website features a fully editable CMS admin panel for easy content management.ANALOG is a members-only collective for enthusiasts who appreciate the mechanical purity of 90s and early 2000s performance vehicles — before traction control, drive modes, and algorithms took over.
+This project is proprietary to Brooklyn Vintage Car Club.## 🚀 Getting Started
 
 
 
-### Key Features:This project showcases a premium editorial design approach with:
+---- **Desktop** (1200px+) — Full editorial experience with custom cursor
 
-- **Custom CMS** — Full admin panel to edit all content, images, and sections- Clean, magazine-style layouts
 
-- **Dark editorial design** — Premium magazine-style aesthetic- Strong typographic hierarchy
 
-- **Waitlist system** — Collect member applications with database storage- Restrained, sophisticated color palette
+<p align="center">### Run locally- **Tablet** (768px–1199px) — Adapted grid layouts
 
-- **Image uploads** — Upload and manage images via Vercel Blob storage- Thoughtful micro-interactions
+  <strong>Brooklyn Vintage Car Club</strong><br>
 
-- **Responsive** — Optimized for desktop, tablet, and mobile
+  <em>Where classics come to life.</em>```bash- **Mobile** (< 768px) — Touch-optimized with slide-out navigation
 
----
-
----
-
-## ✨ Features
-
-## ✨ Site Sections
-
-### Design
-
-| Section | Description |- **Editorial Typography** — Cormorant Garamond paired with Inter for a refined, magazine-quality feel
-
-|---------|-------------|- **Minimalist Aesthetic** — Generous whitespace, clean grids, restrained imagery
-
-| **Hero** | Full-screen introduction with club branding |- **Sophisticated Color Palette** — Warm off-whites, deep charcoals, muted bronze accents
-
-| **About** | Club story and mission |- **Asymmetric Grid Layouts** — Magazine-inspired image placement
-
-| **Location** | Brooklyn clubhouse information |
-
-| **Fleet** | Featured vehicles and collection |### Interactions
-
-| **Membership** | Member benefits and requirements |- **Page Loader** — Branded loading animation
-
-| **Gallery** | Image showcase |- **Parallax Hero** — Subtle depth on scroll
-
-| **Contact** | Contact information and hours |- **Scroll Animations** — Elements gracefully reveal as you navigate
-
-| **Waitlist** | Member application form |- **Custom Cursor** — Magnetic hover effects (desktop)
-
-- **Gallery Hover States** — Smooth zoom and info reveals
-
----- **Animated Counters** — Statistics come to life
-
-- **Scroll Progress Indicator** — Visual reading progress
-
-## 🛠 Tech Stack
-
-### Sections
-
-| Technology | Purpose || Section | Description |
-
-|------------|---------||---------|-------------|
-
-| HTML5 | Semantic markup || **Hero** | Full-bleed cinematic introduction with staggered text animations |
-
-| CSS3 | Custom properties, Grid, Flexbox || **About** | Two-column editorial layout with club statistics |
-
-| Vanilla JavaScript | Interactions and CMS functionality || **Collection** | Asymmetric gallery showcasing era-defining vehicles |
-
-| Vercel | Hosting and Edge Functions || **Quote** | Visual breathing room with club philosophy |
-
-| Vercel KV | Redis database for content storage || **Membership** | Requirements, benefits, and pricing |
-
-| Vercel Blob | Image storage || **Events** | Upcoming drives and track days with status badges |
-
-| **Contact** | Application form with elegant validation |
-
-**No frameworks. No build step. Clean, performant code.**
-
----
-
----
-
-## 🛠 Tech Stack
-
-## 🔐 Admin Panel
-
-| Technology | Purpose |
-
-Access the admin panel at `/admin.html` to edit:|------------|---------|
-
-- All text content across sections| HTML5 | Semantic markup |
-
-- Hero, About, Location, Fleet, Membership images| CSS3 | Custom properties, Grid, Flexbox, Animations |
-
-- Gallery images| Vanilla JavaScript | Interactions, scroll effects, form handling |
-
-- Logo and branding| Google Fonts | Cormorant Garamond, Inter |
-
-- Contact information
-
-- SEO metadata**No frameworks. No dependencies. Just clean, performant code.**
-
-- View waitlist submissions
-
----
-
-**Default password:** `bvcc2024` (change via environment variable)
-
-## 📱 Responsive Design
-
----
-
-Fully responsive across all devices:
-
-## 🚀 Getting Started
-
-- **Desktop** (1200px+) — Full editorial experience with custom cursor
-
-### Run locally- **Tablet** (768px–1199px) — Adapted grid layouts
-
-```bash- **Mobile** (< 768px) — Touch-optimized with slide-out navigation
+</p>
 
 # Using Python
 
