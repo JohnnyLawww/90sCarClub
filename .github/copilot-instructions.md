@@ -2,120 +2,115 @@
 
 ## Architecture Overview
 
-This is a **zero-framework** website with a custom CMS, deployed on Vercel. The architecture prioritizes performance through simplicity.
+**Zero-framework** website with custom CMS on Vercel. Static HTML + vanilla JS, no build step.
 
-### Core Data Flow
 ```
-index.html ←→ content-loader.js ←→ /api/content.js ←→ Vercel KV (Redis)
-admin.html ←→ admin-script-new.js ←→ /api/* (auth, content, upload, submissions)
-```
-
-- **Public site** (`index.html`): Static HTML enhanced by `content-loader.js` which fetches CMS data from `/api/content`
-- **Admin panel** (`admin.html`): Full CMS interface powered by `admin-script-new.js`
-- **API layer** (`/api/`): Vercel Edge Functions using `runtime: 'edge'` (critical constraint)
-
-## Critical Constraints
-
-### Edge Runtime Limitation
-All `/api/*.js` files use Edge Runtime. When modifying API routes:
-- Use `export const config = { runtime: 'edge' }` 
-- Use `@vercel/kv` for database operations (initialized via REST URL/token, not SDK defaults)
-- Use direct REST API calls for Vercel Blob uploads (see `api/upload.js` pattern)
-- Avoid Node.js-specific APIs
-
-### Environment Variables Required
-```
-BVCC_KV_REST_API_URL    # Vercel KV REST endpoint
-BVCC_KV_REST_API_TOKEN  # Vercel KV auth token
-BLOB_READ_WRITE_TOKEN   # Vercel Blob storage token
-BVCC_ADMIN_PASSWORD     # Admin login (defaults to 'bvcc2024')
+Public:  index.html → content-loader.js → /api/content → Vercel KV
+Admin:   admin.html → admin-script-new.js → /api/* (auth, content, upload, submissions)
 ```
 
-### Database Keys
-- `bvcc_content` - All CMS content (JSON blob)
-- `bvcc_submissions` - Waitlist form submissions
+### File Responsibilities
+| File | Role |
+|------|------|
+| `content-loader.js` | Fetches CMS data, applies to DOM with fallbacks |
+| `admin-script-new.js` | Admin panel: auth, image uploads, section saves |
+| `script.js` | UI only: loader, nav, smooth scroll, form handling (animations disabled) |
+| `api/*.js` | Edge Functions for KV/Blob operations |
 
-## Code Patterns
+## Critical: Edge Runtime Constraints
 
-### Content Application Pattern
-When adding new CMS-editable content, follow `content-loader.js` pattern:
+All `/api/*.js` files **must** use Edge Runtime:
 ```javascript
-// 1. Fetch content in loadContent()
-if (content.newSection) applyNewSection(content.newSection);
-
-// 2. Validate before applying
-function isValidImageUrl(url) { /* existing validation logic */ }
-
-// 3. Apply with null checks and fallbacks
-function applyNewSection(section) {
-    const el = document.querySelector('.selector');
-    if (!el) return;
-    if (section.text) el.textContent = section.text;
-}
+export const config = { runtime: 'edge' };
 ```
 
-### Auth Token Pattern
-Admin operations pass session token from `sessionStorage.getItem('bvcc_admin_auth')`:
-```javascript
-const token = getAuthToken();
-fetch('/api/content', {
-    method: 'POST',
-    body: JSON.stringify({ token, content })
-});
+- Initialize `@vercel/kv` with explicit URL/token (not SDK defaults):
+  ```javascript
+  import { createClient } from '@vercel/kv';
+  const kv = createClient({
+    url: process.env.BVCC_KV_REST_API_URL,
+    token: process.env.BVCC_KV_REST_API_TOKEN,
+  });
+  ```
+- Blob uploads use direct REST API (see `api/upload.js`)
+- **No Node.js APIs** (fs, path, Buffer, etc.)
+
+### Required Environment Variables
+```
+BVCC_KV_REST_API_URL, BVCC_KV_REST_API_TOKEN  # Vercel KV
+BLOB_READ_WRITE_TOKEN                          # Vercel Blob
+BVCC_ADMIN_PASSWORD                            # Admin auth (default: 'bvcc2024')
 ```
 
-### CSS Variables (styles.css)
-All styling uses CSS custom properties in `:root`. Key tokens:
-- `--color-accent: #FA2223` (BVCC Red)
-- `--color-bg: #1A1918` (Dark background)
-- `--font-serif: 'Cormorant Garamond'` (headings)
-- `--font-sans: 'Inter'` (body text)
+## Adding CMS-Editable Content
 
-## File Roles
+Follow the 4-file pattern:
 
-| File | Purpose |
-|------|---------|
-| `index.html` | Public site markup - CMS placeholders filled by content-loader |
-| `admin.html` | Admin panel UI with 10 editable sections |
-| `content-loader.js` | Fetches `/api/content`, applies to DOM, gracefully falls back |
-| `admin-script-new.js` | Admin panel logic, image uploads, content saving |
-| `script.js` | UI interactions: loader, navigation, scroll animations, form handling |
-| `api/content.js` | GET/POST for CMS content (Vercel KV) |
-| `api/auth.js` | Password validation, session token generation |
-| `api/upload.js` | Image upload to Vercel Blob storage |
+1. **`index.html`**: Add HTML with identifiable selectors (`.section-title`, `.about-lead`, etc.)
+2. **`content-loader.js`**: Add apply function with null checks:
+   ```javascript
+   function applyNewSection(data) {
+       const section = document.querySelector('.new-section');
+       if (!section) return;
+       if (data.title) section.querySelector('.section-title').innerHTML = data.title;
+       if (data.image && isValidImageUrl(data.image)) {
+           section.querySelector('img').src = data.image;
+       }
+   }
+   ```
+3. **`admin.html`**: Add form fields in new `<div class="admin-section" id="section-newsection">`
+4. **`admin-script-new.js`**: Add save handler using `getAuthToken()` pattern
 
-## Local Development
+### Image URL Validation
+Always use `isValidImageUrl()` before setting `src` - accepts http(s), local paths, or Vercel Blob URLs.
 
-```bash
-# No build step required. Open directly or serve static files:
-python3 -m http.server 8080
-# or
-npx serve
+## API Patterns
 
-# Note: API routes only work when deployed to Vercel
-# For local API testing, deploy to preview branch
-```
-
-## Common Tasks
-
-### Adding a New Editable Section
-1. Add HTML structure in `index.html` with identifiable selectors
-2. Add `applyNewSection()` function in `content-loader.js`
-3. Add form fields in `admin.html` matching section name
-4. Add save handler in `admin-script-new.js`
-
-### Modifying API Responses
-Always include CORS headers in Edge Functions:
+### CORS Headers (required on all responses)
 ```javascript
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
+// Handle OPTIONS preflight: return new Response(null, { headers: corsHeaders });
 ```
 
-## Assets
+### Auth Token Flow
+```javascript
+// Admin stores: sessionStorage.setItem('bvcc_admin_auth', JSON.stringify({ token, expiry }))
+// API accepts: password OR 64-char token in request body
+const token = getAuthToken(); // from admin-script-new.js
+fetch('/api/content', { method: 'POST', body: JSON.stringify({ token, content }) });
+```
 
-- **Logos**: `/logos/` - SVG formats (Red.svg, White.svg, Black.svg, OriginalWhite.svg)
-- **Images**: `/stock photos/` - Adobe Stock images
-- **Brand assets**: `/BrooklynVintageCarClub_Official/` - Full brand kit (AI, PDF, PNG, SVG)
+### Database Keys
+- `bvcc_content` - All CMS content (single JSON blob)
+- `bvcc_submissions` - Waitlist form submissions (array)
+
+## CSS Design Tokens
+
+All styling via CSS custom properties in `styles.css`:
+```css
+--color-accent: #FA2223;      /* BVCC Red */
+--color-bg: #1A1918;          /* Dark background */
+--font-serif: 'Cormorant Garamond';  /* Headings */
+--font-sans: 'Inter';                /* Body text */
+```
+
+## Development
+
+```bash
+# Static serving (API routes won't work locally)
+python3 -m http.server 8080  # or: npx serve
+
+# API testing requires Vercel deployment (use preview branches)
+```
+
+## Admin Sections (12 total)
+Hero, About, Location, Fleet, Membership, Gallery, Branding, SEO, Contact, Analytics, Waitlist + Footer
+
+## Assets
+- **Logos**: `/logos/*.svg` (Red, White, Black, OriginalWhite)
+- **Stock images**: `/stock photos/`
+- **Brand kit**: `/BrooklynVintageCarClub_Official/` (Logo/, Mockups/, etc.)
