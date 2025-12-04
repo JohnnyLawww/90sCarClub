@@ -264,6 +264,18 @@ function applyWaitlist(waitlist) {
         const tag = section.querySelector('.section-tag');
         if (tag) tag.textContent = waitlist.tag;
     }
+    
+    // Section title
+    if (waitlist.title) {
+        const title = section.querySelector('.section-title');
+        if (title) title.innerHTML = waitlist.title;
+    }
+    
+    // Intro text
+    if (waitlist.intro) {
+        const intro = section.querySelector('.waitlist-intro');
+        if (intro) intro.textContent = waitlist.intro;
+    }
 }
 
 function applyGallery(gallery) {

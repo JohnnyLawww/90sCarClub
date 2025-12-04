@@ -258,9 +258,17 @@ function populateFormFields(content) {
         document.getElementById('membership-lead').value = content.membership.lead || '';
     }
     
-    // Waitlist tag
-    if (content.waitlist && content.waitlist.tag) {
-        document.getElementById('waitlist-tag').value = content.waitlist.tag;
+    // Waitlist
+    if (content.waitlist) {
+        if (content.waitlist.tag) {
+            document.getElementById('waitlist-tag').value = content.waitlist.tag;
+        }
+        if (content.waitlist.title) {
+            document.getElementById('waitlist-title').value = content.waitlist.title;
+        }
+        if (content.waitlist.intro) {
+            document.getElementById('waitlist-intro').value = content.waitlist.intro;
+        }
     }
     
     // Gallery
@@ -519,7 +527,9 @@ function buildContentObject() {
             lead: document.getElementById('membership-lead').value
         },
         waitlist: {
-            tag: document.getElementById('waitlist-tag').value
+            tag: document.getElementById('waitlist-tag').value,
+            title: document.getElementById('waitlist-title').value,
+            intro: document.getElementById('waitlist-intro').value
         },
         gallery: galleryImages,
         branding: {
