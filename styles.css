@@ -723,15 +723,20 @@ body.loading {
 }
 
 .fleet-gallery-simple .gallery-image-wrapper {
+    aspect-ratio: 4/3;
     position: relative;
     overflow: hidden;
     background: var(--color-bg-dark);
 }
 
 .fleet-gallery-simple .gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 .fleet-gallery-simple .gallery-info {
