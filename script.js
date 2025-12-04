@@ -189,7 +189,37 @@ function initForm() {
     }
     
     function saveWaitlistSubmission(data) {
-        // Save to API
+        // Google Sheets Web App URL
+        const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBSWI3UrKE6OONOaWqBGM7vF_7Vt7ox2AJxRQUQjLNeLpuz872P1-bNtrQIEMrooEb/exec';
+        
+        // Send to Google Sheets
+        fetch(GOOGLE_SHEETS_URL, {
+            method: 'POST',
+            mode: 'no-cors', // Required for Google Apps Script
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                fullName: data.fullName || '',
+                email: data.email || '',
+                phone: data.phone || '',
+                zipCode: data.zipCode || '',
+                driveManual: data.driveManual || '',
+                ownEnthusiastCar: data.ownEnthusiastCar || '',
+                currentCar: data.currentCar || '',
+                carInterests: data.carInterests || '',
+                whyJoin: data.whyJoin || '',
+                readyToJoin: data.readyToJoin || ''
+            })
+        })
+        .then(() => {
+            console.log('Submission sent to Google Sheets');
+        })
+        .catch(error => {
+            console.error('Error sending to Google Sheets:', error);
+        });
+        
+        // Also save to API (Vercel KV) as backup
         fetch('/api/submissions', {
             method: 'POST',
             headers: {
