@@ -202,7 +202,9 @@ function populateFormFields(content) {
     if (content.fleet) {
         document.getElementById('fleet-title').value = content.fleet.title || '';
         document.getElementById('fleet-intro').value = content.fleet.intro || '';
+        document.getElementById('fleet-list-title').value = content.fleet.listTitle || 'Representative Fleet List';
         document.getElementById('fleet-details').value = content.fleet.details || '';
+        document.getElementById('fleet-car-list').value = content.fleet.carList || '';
         document.getElementById('fleet-note').value = content.fleet.note || '';
         
         // Fleet cars
@@ -448,7 +450,9 @@ function buildContentObject() {
         fleet: {
             title: document.getElementById('fleet-title').value,
             intro: document.getElementById('fleet-intro').value,
+            listTitle: document.getElementById('fleet-list-title').value,
             details: document.getElementById('fleet-details').value,
+            carList: document.getElementById('fleet-car-list').value,
             note: document.getElementById('fleet-note').value,
             cars: cars
         },

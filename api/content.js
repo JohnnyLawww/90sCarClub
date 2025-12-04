@@ -128,7 +128,9 @@ function getDefaultContent() {
     fleet: {
       title: "Driver-focused<br><em>machines</em>",
       intro: "A curated set of 90s and 2000s European modern classics—driver-focused machines known for character, engagement, and analog feel.",
+      listTitle: "Representative Fleet List",
       details: "Launch with 8–10 cars, grow to 12 by the end of year two, and expand to 18 as membership scales.",
+      carList: "<p><strong>Porsche:</strong> 964, 993, 996 GT3, 997 Turbo, 944 Turbo</p><p><strong>BMW:</strong> E36 M3, E46 M3, E39 M5, Z3 M Coupe</p><p><strong>Mercedes:</strong> CLK63 Black Series</p><p><strong>Ferrari:</strong> F430</p><p><strong>Aston Martin:</strong> V8 Vantage (manual)</p><p><strong>Acura/Honda/Nissan:</strong> NSX (NA1), S2000, 300ZX Twin Turbo</p>",
       note: "Subject to availability, acquisition timing and member demand."
     },
     membership: {

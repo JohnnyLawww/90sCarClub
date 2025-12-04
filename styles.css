@@ -749,6 +749,30 @@ body.loading {
     text-align: center;
 }
 
+.fleet-list-title {
+    font-family: var(--font-serif);
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    color: var(--color-white);
+    margin-bottom: var(--space-md);
+}
+
+.fleet-intro-text {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
+    font-style: italic;
+}
+
+.fleet-car-list {
+    text-align: left;
+    margin-bottom: var(--space-md);
+}
+
+.fleet-car-list p {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-sm);
+}
+
 .fleet-details p {
     color: var(--color-text-muted);
     margin-bottom: var(--space-sm);

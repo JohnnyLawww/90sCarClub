@@ -150,9 +150,17 @@ function applyFleet(fleet) {
         const intro = section.querySelector('.fleet-intro');
         if (intro) intro.textContent = fleet.intro;
     }
+    if (fleet.listTitle) {
+        const listTitle = section.querySelector('.fleet-list-title');
+        if (listTitle) listTitle.textContent = fleet.listTitle;
+    }
     if (fleet.details) {
-        const details = section.querySelector('.fleet-details p:first-child');
-        if (details) details.textContent = fleet.details;
+        const introText = section.querySelector('.fleet-intro-text');
+        if (introText) introText.textContent = fleet.details;
+    }
+    if (fleet.carList) {
+        const carListEl = section.querySelector('.fleet-car-list');
+        if (carListEl) carListEl.innerHTML = fleet.carList;
     }
     if (fleet.note) {
         const note = section.querySelector('.fleet-note');
