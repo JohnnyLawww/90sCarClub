@@ -192,7 +192,7 @@ function initForm() {
         // Google Sheets Web App URL
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbyBSWI3UrKE6OONOaWqBGM7vF_7Vt7ox2AJxRQUQjLNeLpuz872P1-bNtrQIEMrooEb/exec';
         
-        // Send to Google Sheets
+        // Send to Google Sheets - ALL form fields
         fetch(GOOGLE_SHEETS_URL, {
             method: 'POST',
             mode: 'no-cors', // Required for Google Apps Script
@@ -209,7 +209,10 @@ function initForm() {
                 currentCar: data.currentCar || '',
                 carInterests: data.carInterests || '',
                 whyJoin: data.whyJoin || '',
-                readyToJoin: data.readyToJoin || ''
+                readyToJoin: data.readyToJoin || '',
+                costExpectation: data.costExpectation || '',
+                usageFrequency: data.usageFrequency || '',
+                comments: data.comments || ''
             })
         })
         .then(() => {

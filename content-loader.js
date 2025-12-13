@@ -335,6 +335,29 @@ function applyWaitlist(waitlist) {
                 if (requiredSpan) label.appendChild(requiredSpan);
             }
         }
+        
+        if (q.costQuestion) {
+            const label = section.querySelector('.form-label-cost');
+            if (label) {
+                const requiredSpan = label.querySelector('.required');
+                label.textContent = q.costQuestion + ' ';
+                if (requiredSpan) label.appendChild(requiredSpan);
+            }
+        }
+        
+        if (q.usageQuestion) {
+            const label = section.querySelector('.form-label-usage');
+            if (label) {
+                const requiredSpan = label.querySelector('.required');
+                label.textContent = q.usageQuestion + ' ';
+                if (requiredSpan) label.appendChild(requiredSpan);
+            }
+        }
+        
+        if (q.commentsQuestion) {
+            const label = section.querySelector('.form-label-comments');
+            if (label) label.textContent = q.commentsQuestion;
+        }
     }
 }
 

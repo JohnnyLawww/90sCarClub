@@ -279,6 +279,9 @@ function populateFormFields(content) {
             if (q.interestsQuestion) document.getElementById('waitlist-q-interests').value = q.interestsQuestion;
             if (q.whyJoinQuestion) document.getElementById('waitlist-q-why-join').value = q.whyJoinQuestion;
             if (q.readyQuestion) document.getElementById('waitlist-q-ready').value = q.readyQuestion;
+            if (q.costQuestion) document.getElementById('waitlist-q-cost').value = q.costQuestion;
+            if (q.usageQuestion) document.getElementById('waitlist-q-usage').value = q.usageQuestion;
+            if (q.commentsQuestion) document.getElementById('waitlist-q-comments').value = q.commentsQuestion;
         }
     }
     
@@ -548,7 +551,10 @@ function buildContentObject() {
                 currentCarPlaceholder: document.getElementById('waitlist-q-current-placeholder').value,
                 interestsQuestion: document.getElementById('waitlist-q-interests').value,
                 whyJoinQuestion: document.getElementById('waitlist-q-why-join').value,
-                readyQuestion: document.getElementById('waitlist-q-ready').value
+                readyQuestion: document.getElementById('waitlist-q-ready').value,
+                costQuestion: document.getElementById('waitlist-q-cost').value,
+                usageQuestion: document.getElementById('waitlist-q-usage').value,
+                commentsQuestion: document.getElementById('waitlist-q-comments').value
             }
         },
         gallery: galleryImages,
