@@ -136,6 +136,23 @@ function getDefaultContent() {
     membership: {
       title: "Great cars.<br>Easy access.<br><em>Zero friction.</em>",
       lead: "Membership includes an initiation fee and monthly dues. Full details are shared privately with applicants during the review process."
+    },
+    waitlist: {
+      tag: "Founding Member Waitlist",
+      title: "Ready to<br><em>join?</em>",
+      intro: "We review all submissions. Space is limited.",
+      formQuestions: {
+        manualQuestion: "Do you drive manual?",
+        ownCarQuestion: "Own an enthusiast car?",
+        currentCarQuestion: "If yes, what do you own?",
+        currentCarPlaceholder: "e.g., 2002 BMW M3",
+        interestsQuestion: "What types of cars are you most interested in?",
+        whyJoinQuestion: "Why are you interested in joining BVCC?",
+        readyQuestion: "Would you be ready to join in early spring if accepted?",
+        costQuestion: "Membership will include an initiation fee in the mid–four-figure range and monthly dues. Is this general level of cost within what you'd expect for a drivers' club?",
+        usageQuestion: "How often do you expect to use the club?",
+        commentsQuestion: "Any other comments on how we could make this your dream garage?"
+      }
     }
   };
 }
