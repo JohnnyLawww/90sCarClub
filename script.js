@@ -211,6 +211,7 @@ function initForm() {
                 whyJoin: data.whyJoin || '',
                 readyToJoin: data.readyToJoin || '',
                 costExpectation: data.costExpectation || '',
+                depositWilling: data.depositWilling || '',
                 usageFrequency: data.usageFrequency || '',
                 comments: data.comments || ''
             })

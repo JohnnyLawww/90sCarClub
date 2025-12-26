@@ -1,1 +1,1 @@
-Timestamp	Full Name	Email	Phone	ZIP Code	Drive Manual?	Own Enthusiast Car?	Current Car	Car Interests	Why Join	Ready to Join?	Cost Expectation	Usage Frequency	Comments
+Timestamp	Full Name	Email	Phone	ZIP Code	Drive Manual?	Own Enthusiast Car?	Current Car	Car Interests	Why Join	Ready to Join?	Cost Expectation	Deposit Willing	Usage Frequency	Comments

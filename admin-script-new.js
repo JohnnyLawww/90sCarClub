@@ -286,6 +286,12 @@ function populateFormFields(content) {
                 if (q.costOptions.opt3) document.getElementById('waitlist-q-cost-opt3').value = q.costOptions.opt3;
                 if (q.costOptions.opt4) document.getElementById('waitlist-q-cost-opt4').value = q.costOptions.opt4;
             }
+            if (q.depositQuestion) document.getElementById('waitlist-q-deposit').value = q.depositQuestion;
+            if (q.depositOptions) {
+                if (q.depositOptions.opt1) document.getElementById('waitlist-q-deposit-opt1').value = q.depositOptions.opt1;
+                if (q.depositOptions.opt2) document.getElementById('waitlist-q-deposit-opt2').value = q.depositOptions.opt2;
+                if (q.depositOptions.opt3) document.getElementById('waitlist-q-deposit-opt3').value = q.depositOptions.opt3;
+            }
             if (q.usageQuestion) document.getElementById('waitlist-q-usage').value = q.usageQuestion;
             if (q.commentsQuestion) document.getElementById('waitlist-q-comments').value = q.commentsQuestion;
         }
@@ -564,6 +570,12 @@ function buildContentObject() {
                     opt2: document.getElementById('waitlist-q-cost-opt2').value,
                     opt3: document.getElementById('waitlist-q-cost-opt3').value,
                     opt4: document.getElementById('waitlist-q-cost-opt4').value
+                },
+                depositQuestion: document.getElementById('waitlist-q-deposit').value,
+                depositOptions: {
+                    opt1: document.getElementById('waitlist-q-deposit-opt1').value,
+                    opt2: document.getElementById('waitlist-q-deposit-opt2').value,
+                    opt3: document.getElementById('waitlist-q-deposit-opt3').value
                 },
                 usageQuestion: document.getElementById('waitlist-q-usage').value,
                 commentsQuestion: document.getElementById('waitlist-q-comments').value

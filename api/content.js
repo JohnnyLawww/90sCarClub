@@ -156,6 +156,12 @@ function getDefaultContent() {
           opt3: "No",
           opt4: "I'd need more detail before deciding"
         },
+        depositQuestion: "If invited to become a founding member, would you be willing to place a fully refundable $1,000 deposit to secure your spot?",
+        depositOptions: {
+          opt1: "Yes — I'd place a refundable $1,000 deposit immediately",
+          opt2: "Maybe — I'd consider it but need more details",
+          opt3: "No — I'm interested, but not ready for a deposit"
+        },
         usageQuestion: "How often do you expect to use the club?",
         commentsQuestion: "Any other comments on how we could make this your dream garage?"
       }

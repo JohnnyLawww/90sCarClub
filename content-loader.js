@@ -379,6 +379,37 @@ function applyWaitlist(waitlist) {
             }
         }
         
+        // Deposit question
+        if (q.depositQuestion) {
+            const label = section.querySelector('.form-label-deposit');
+            if (label) {
+                const requiredSpan = label.querySelector('.required');
+                label.textContent = q.depositQuestion + ' ';
+                if (requiredSpan) label.appendChild(requiredSpan);
+            }
+        }
+        
+        // Update deposit dropdown options (both text AND value)
+        if (q.depositOptions) {
+            const select = section.querySelector('#depositWilling');
+            if (select) {
+                const opts = q.depositOptions;
+                const options = select.querySelectorAll('option');
+                if (options[1] && opts.opt1) {
+                    options[1].textContent = opts.opt1;
+                    options[1].value = opts.opt1;
+                }
+                if (options[2] && opts.opt2) {
+                    options[2].textContent = opts.opt2;
+                    options[2].value = opts.opt2;
+                }
+                if (options[3] && opts.opt3) {
+                    options[3].textContent = opts.opt3;
+                    options[3].value = opts.opt3;
+                }
+            }
+        }
+        
         if (q.usageQuestion) {
             const label = section.querySelector('.form-label-usage');
             if (label) {
